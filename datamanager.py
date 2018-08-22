@@ -16,3 +16,11 @@ def read_from_csv(csvfile):
             titles.append(row['title'])
             messages.append(row['message'])
         return ids, submission_times, view_numbers, titles, messages
+
+
+def write_to_csv(csvfile, id_, time, view_number, title, message):
+    vote_number = 0
+    image = ''
+    with open(csvfile, 'a', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow([id_] + [time] + [view_number] + [vote_number] + [title] + [message] + [image])
