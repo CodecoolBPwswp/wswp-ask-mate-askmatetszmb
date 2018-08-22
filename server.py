@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, request
+from connection import data_maker
 
 
 app = Flask(__name__)
@@ -7,7 +8,8 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/list')
 def index():
-    return render_template('list.html')
+    id_title = data_maker()
+    return render_template('list.html', id_title=id_title)
 
 
 @app.route('/add-question')
