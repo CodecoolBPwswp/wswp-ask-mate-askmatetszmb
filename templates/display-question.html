@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display a question</title>
+</head>
+<body>
+    <h1>{{ title }}</h1><br>
+    <p>ID: {{ id_ }}</p>
+    <p>UNIX timestamp: {{ time }}</p>
+    <p>Number of views: {{ view_number }}</p>
+    <p>{{ message }}</p>
+    <h2>Answers:</h2>
+    {% for answer in messages %}
+        <p>{{ answer }}</p>
+    {% endfor %}
+    <br><a href="/question/<{{ id_ }}>/new-answer">Post an answer</a>
+</body>
+</html>
