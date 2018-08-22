@@ -1,7 +1,7 @@
 import csv
 
 
-def read_from_csv(csvfile):
+def read_questions(csvfile):
     with open(csvfile, newline='') as f:
         reader = csv.DictReader(f)
         ids = []
@@ -18,9 +18,32 @@ def read_from_csv(csvfile):
         return ids, submission_times, view_numbers, titles, messages
 
 
-def write_to_csv(csvfile, id_, time, view_number, title, message):
+def write_question(csvfile, id_, time, view_number, title, message):
     vote_number = 0
     image = ''
     with open(csvfile, 'a', newline='') as f:
         writer = csv.writer(f)
         writer.writerow([id_] + [time] + [view_number] + [vote_number] + [title] + [message] + [image])
+
+
+def read_answers(csvfile):
+    with open(csvfile, newline='') as f:
+        reader = csv.DictReader(f)
+        ids = []
+        submission_times = []
+        question_ids = []
+        messages = []
+        for row in reader:
+            ids.append(row['id'])
+            submission_times.append(row['submission_time'])
+            question_ids.append(row['question_id'])
+            messages.append(row['message'])
+        return ids, submission_times, question_ids, messages
+
+
+def write_answer(csvfile, id_, time, question_id, message):
+    vote_number = 0
+    image = ''
+    with open(csvfile, 'a', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow([id_] + [time] + [vote_number] + [question_id] + [message] + [image])
