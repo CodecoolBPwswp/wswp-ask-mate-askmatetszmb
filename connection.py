@@ -17,3 +17,12 @@ def get_question_data(id_):
     title = titles[id_]
     message = messages[id_]
     return time, view_number, title, message
+
+
+def get_answers(question_id):
+    rows = datamanager.read_answers('sample_data/answer.csv')
+    answers = []
+    for row in rows:
+        if row['question_id'] == str(question_id):
+            answers.append(row['message'])
+    return answers
