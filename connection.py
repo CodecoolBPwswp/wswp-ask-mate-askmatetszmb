@@ -1,4 +1,3 @@
-import time
 import datamanager
 
 
@@ -21,3 +20,12 @@ def create_id(file):
     new_id = len(ids)
     return new_id
 
+
+
+def get_answers(question_id):
+    rows = datamanager.read_answers('sample_data/answer.csv')
+    answers = []
+    for row in rows:
+        if row['question_id'] == str(question_id):
+            answers.append(row['message'])
+    return answers

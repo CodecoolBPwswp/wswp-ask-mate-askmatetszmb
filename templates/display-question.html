@@ -10,8 +10,8 @@
     <p>UNIX timestamp: {{ time }}</p>
     <p>Number of views: {{ view_number }}</p>
     <p>{{ message }}</p>
-    <h2>Answers:</h2>
-    {% for answer in messages %}
+    <h3>Answers:</h3>
+    {% for answer in answers %}
         <p>{{ answer }}</p>
     {% endfor %}
     <br><a href="/question/{{ id_ }}/new-answer">Post an answer</a>
