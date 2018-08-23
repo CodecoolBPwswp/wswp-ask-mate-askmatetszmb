@@ -20,6 +20,10 @@ def create_id(file):
     new_id = len(ids)
     return new_id
 
+def create_answer_id(file):
+    rows = datamanager.read_answers(file)
+    answer_id = len(rows)
+    return answer_id
 
 
 def get_answers(question_id):
