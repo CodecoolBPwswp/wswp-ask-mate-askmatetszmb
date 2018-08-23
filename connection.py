@@ -15,10 +15,12 @@ def get_question_data(id_):
     message = messages[id_]
     return time, view_number, title, message
 
+
 def create_id(file):
     ids, times, view_numbers, titles, messages, rows = datamanager.read_questions(file)
     new_id = len(ids)
     return new_id
+
 
 def create_answer_id(file):
     rows = datamanager.read_answers(file)
