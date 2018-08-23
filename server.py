@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request
-from connection import data_maker
+import connection
 
 
 app = Flask(__name__)
@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/list')
 def index():
-    id_title = data_maker()
+    id_title = connection.data_maker()
     return render_template('list.html', id_title=id_title)
 
 
@@ -26,7 +26,8 @@ def route_save():
 
 @app.route('/question/<int:question_id>')
 def display_question(question_id=None):
-    return render_template('display-question.html', id_=question_id)
+    time, view_number, title, message = connection.get_question_data(question_id)
+    return render_template('display-question.html', id_=question_id, time=time, view_number=view_number, title=title, message=message)
 
 
 if __name__ == "__main__":
