@@ -6,7 +6,6 @@ import datamanager
 app = Flask(__name__)
 
 
-@app.route('/')
 @app.route('/list')
 def index():
     id_title = connection.data_maker()
@@ -23,7 +22,7 @@ def route_save():
     question_title = request.form['Question Title']
     question_message = request.form['Question Message']
     datamanager.write_question('sample_data/question.csv', 4, question_title, question_message)
-    return redirect('/')
+    return redirect('/list')
 
 
 @app.route('/question/<int:question_id>')
@@ -48,7 +47,8 @@ def new_answer(question_id=None):
 def save_answer(question_id=None):
     answer = request.form['Answer']
     datamanager.write_answer("sample_data/answer.csv", question_id, answer)
-    return redirect('/')
+    return redirect('/list')
+
 
 if __name__ == "__main__":
     app.run(
