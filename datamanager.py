@@ -39,9 +39,11 @@ def read_answers(csvfile):
         return rows
 
 
-def write_answer(csvfile, id_, time, question_id, message):
+def write_answer(csvfile, question_id, message):
+    UnixStamp = int(time.time())
+    new_id = connection.create_answer_id(csvfile)
     vote_number = 0
     image = ''
     with open(csvfile, 'a', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow([id_] + [time] + [vote_number] + [question_id] + [message] + [image])
+        writer.writerow([new_id] + [UnixStamp] + [vote_number] + [question_id] + [message] + [image])
