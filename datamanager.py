@@ -29,16 +29,8 @@ def write_question(csvfile, id_, time, view_number, title, message):
 def read_answers(csvfile):
     with open(csvfile, newline='') as f:
         reader = csv.DictReader(f)
-        ids = []
-        submission_times = []
-        question_ids = []
-        messages = []
-        for row in reader:
-            ids.append(row['id'])
-            submission_times.append(row['submission_time'])
-            question_ids.append(row['question_id'])
-            messages.append(row['message'])
-        return ids, submission_times, question_ids, messages
+        rows = list(reader)
+        return rows
 
 
 def write_answer(csvfile, id_, time, question_id, message):
