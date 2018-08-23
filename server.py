@@ -28,7 +28,13 @@ def route_save():
 def display_question(question_id=None):
     time, view_number, title, message = connection.get_question_data(question_id)
     answers = connection.get_answers(question_id)
-    return render_template('display-question.html', id_=question_id, time=time, view_number=view_number, title=title, message=message, answers=answers)
+    return render_template('display-question.html',
+                           id_=question_id,
+                           time=time,
+                           view_number=view_number,
+                           title=title,
+                           message=message,
+                           answers=answers)
 
 
 @app.route('/question/<int:question_id>/new-answer')
