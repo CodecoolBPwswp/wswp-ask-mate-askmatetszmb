@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, request
+from datamanager import write_answer
 import connection
 
 
@@ -44,7 +45,8 @@ def new_answer(question_id=None):
 
 @app.route('/new-answer', methods=['POST'])
 def save_answer():
-    answer = request.form['Answer']
+    message = request.form['Answer']
+    write_answer('sample_data/answer.csv', id_, time, question_id, message)
     return redirect('/')
 
 if __name__ == "__main__":
