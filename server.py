@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request
 import connection
+import datamanager
 
 
 app = Flask(__name__)
@@ -21,6 +22,7 @@ def add_question():
 def route_save():
     question_title = request.form['Question Title']
     question_message = request.form['Question Message']
+    datamanager.write_question('sample_data/question.csv', 4, question_title, question_message)
     return redirect('/')
 
 
@@ -35,8 +37,8 @@ def new_answer(question_id=None):
     return render_template('add-answer.html', id_=question_id)
 
 
-@app.route('/new-answer', methods=['POST'])
-def save_answer():
+@app.route('/question/<int:question_id>/new-answer', methods=['POST'])
+def save_answer(question_id=None):
     answer = request.form['Answer']
     return redirect('/')
 

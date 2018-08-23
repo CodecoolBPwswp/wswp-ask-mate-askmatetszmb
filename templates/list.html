@@ -6,12 +6,13 @@
 </head>
 <body>
     <h1>Questions</h1>
-    <ul>
+    <p>
         {% for id,title in id_title.items() %}
             <li>
                 <a href="/question/{{ id }}"> {{ title }}</a>
             </li>
         {% endfor %}
+        <p></p><a href="/add-question"> Add Question</a></p>
     </ul>
 </body>
 </html>

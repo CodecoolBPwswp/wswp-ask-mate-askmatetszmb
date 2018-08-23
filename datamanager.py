@@ -1,4 +1,6 @@
 import csv
+import connection
+import time
 
 
 def read_questions(csvfile):
@@ -9,21 +11,25 @@ def read_questions(csvfile):
         view_numbers = []
         titles = []
         messages = []
+        rows = []
         for row in reader:
             ids.append(row['id'])
             submission_times.append(row['submission_time'])
             view_numbers.append(row['view_number'])
             titles.append(row['title'])
             messages.append(row['message'])
-        return ids, submission_times, view_numbers, titles, messages
+            rows.append(row)
+        return ids, submission_times, view_numbers, titles, messages, rows
 
 
-def write_question(csvfile, id_, time, view_number, title, message):
+def write_question(csvfile, view_number, title, message):
+    new_id = connection.create_id(csvfile)
+    UnixStamp = int(time.time())
     vote_number = 0
     image = ''
     with open(csvfile, 'a', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow([id_] + [time] + [view_number] + [vote_number] + [title] + [message] + [image])
+        writer.writerow([new_id] + [UnixStamp] + [view_number] + [vote_number] + [title] + [message] + [image])
 
 
 def read_answers(csvfile):
