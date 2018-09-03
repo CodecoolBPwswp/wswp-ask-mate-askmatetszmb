@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 
 @app.route('/list')
+@app.route('/')
 def index():
     id_title = connection.data_maker()
     return render_template('list.html', id_title=id_title)
