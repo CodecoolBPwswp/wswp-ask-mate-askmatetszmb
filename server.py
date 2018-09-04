@@ -45,8 +45,9 @@ def new_answer(question_id=None):
 
 @app.route('/question/<int:question_id>/new-answer', methods=['POST'])
 def save_answer(question_id=None):
-    answer = request.form['Answer']
-    datamanager.write_answer("sample_data/answer.csv", question_id, answer)
+    answer = request.form.to_dict()
+    answer_message = answer['answer_message']
+    datamanager.add_answer(answer_message, id)
     return redirect('/list')
 
 
