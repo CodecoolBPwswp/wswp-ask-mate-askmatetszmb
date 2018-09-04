@@ -1,14 +1,26 @@
 import database_common
 from datetime import datetime
 
+
 @database_common.connection_handler
 def get_questions(cursor):
     cursor.execute("""
                     SELECT id,title FROM question
                     ORDER BY id;
-                   """)
+                   """,)
     id_and_question = cursor.fetchall()
     return id_and_question
+
+
+@database_common.connection_handler
+def get_answers(cursor, question_id):
+    cursor.execute("""
+                    SELECT submission_time, message FROM answer
+                    WHERE question_id = %(question_id)s;
+                    """,
+                   {'question_id': question_id})
+    answers = cursor.fetchall()
+    return answers
 
 
 @database_common.connection_handler
@@ -41,4 +53,4 @@ def add_question(cursor, question_title, question_message):
                     VALUES(%(submission_time)s, %(question_title)s, %(question_message)s);
                     """,
                    {'question_title': question_title, 'question_message': question_message,
-                   'submission_time': submission_time})
+                    'submission_time': submission_time})
