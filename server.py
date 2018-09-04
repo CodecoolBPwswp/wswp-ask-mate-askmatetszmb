@@ -34,8 +34,8 @@ def route_save():
 @app.route('/question/<int:question_id>')
 def display_question(question_id=None):
     question = datamanager.display_question(question_id)
-    # answers = connection.get_answers(question_id)
-    return render_template('display-question.html', question=question)
+    answers = datamanager.get_answers(question_id)
+    return render_template('display-question.html', question=question, answers=answers)
 
 
 @app.route('/question/<int:question_id>/new-answer')
