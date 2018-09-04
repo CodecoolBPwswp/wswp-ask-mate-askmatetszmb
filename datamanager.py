@@ -57,7 +57,7 @@ def add_question(cursor, question_title, question_message):
 
 
 @database_common.connection_handler
-def add_answer(cursor, answer_message, question_id):
+def add_answer(cursor, question_id, answer_message):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
                     INSERT INTO answer (submission_time, question_id, message)
