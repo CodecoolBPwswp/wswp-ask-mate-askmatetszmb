@@ -48,7 +48,7 @@ def new_answer(question_id=None):
 def save_answer(question_id=None):
     answer = request.form.to_dict()
     answer_message = answer['answer_message']
-    datamanager.add_answer(answer_message, id)
+    datamanager.add_answer(answer_message, question_id)
     return redirect('/list')
 
 
