@@ -15,7 +15,7 @@ def get_questions(cursor):
 @database_common.connection_handler
 def get_answers(cursor, question_id):
     cursor.execute("""
-                    SELECT submission_time, message FROM answer
+                    SELECT submission_time, id, message FROM answer
                     WHERE question_id = %(question_id)s;
                     """,
                    {'question_id': question_id})
@@ -81,4 +81,13 @@ def view_counter(cursor, id):
                       WHERE id = %(id)s;
                       """,
                    {'id': id, 'view': view})
+
+
+@database_common.connection_handler
+def edit_answer(cursor, id, edited_answer):
+    cursor.execute("""
+                    UPDATE answer
+                    SET message = %(edited_answer)s
+                    WHERE id = %(id)s""",
+                   {'id': id, 'edited_answer': edited_answer})
 

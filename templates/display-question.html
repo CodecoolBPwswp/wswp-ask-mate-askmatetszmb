@@ -16,6 +16,7 @@
                 <tr>
                     <td>{{ answer.submission_time }}</td>
                     <td>{{ answer.message }}</td>
+                    <td><a href='/answer/{{ answer.id }}/edit'>Edit answer</a></td>
                 </tr>
             {% endfor %}
         </table><br>

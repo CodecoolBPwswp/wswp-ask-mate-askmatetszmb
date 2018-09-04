@@ -52,6 +52,19 @@ def save_answer(question_id=None):
     return redirect('/list')
 
 
+@app.route('/answer/<answer_id>/edit')
+def edit_answer(answer_id=None):
+    return render_template('edit-answer.html', answer_id=answer_id)
+
+
+@app.route('/answer/<answer_id>/edit', methods=['POST'])
+def save_edit_answer(answer_id=None):
+    edited_answer_packed = request.form.to_dict()
+    edited_answer = edited_answer_packed['edited_answer']
+    datamanager.edit_answer(answer_id, edited_answer)
+    return redirect('/list')
+
+
 if __name__ == "__main__":
     app.run(
       debug=True,
