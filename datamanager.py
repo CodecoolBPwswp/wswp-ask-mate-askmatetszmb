@@ -1,6 +1,7 @@
 import database_common
 from datetime import datetime
 
+
 @database_common.connection_handler
 def get_questions(cursor):
     cursor.execute("""
@@ -41,4 +42,15 @@ def add_question(cursor, question_title, question_message):
                     VALUES(%(submission_time)s, %(question_title)s, %(question_message)s);
                     """,
                    {'question_title': question_title, 'question_message': question_message,
-                   'submission_time': submission_time})
+                    'submission_time': submission_time})
+
+
+@database_common.connection_handler
+def add_answer(cursor, answer_message, id):
+    submission_time = datetime.now()
+    cursor.execute("""
+                    INSERT INTO question (submission_time, message)
+                    VALUES(%(submission_time)s, %(answer_message)s);
+                    """,
+                   {'id': id, 'answer_message': answer_message,
+                    'submission_time': submission_time})
