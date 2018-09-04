@@ -19,3 +19,14 @@ def display_question(cursor, id):
                    {'id': id})
     question = cursor.fetchone()
     return question
+
+
+@database_common.connection_handler
+def get_last_five_questions(cursor):
+    cursor.execute("""
+                    SELECT id, title, submission_time, view_number FROM question
+                    ORDER BY submission_time DESC
+                    LIMIT 5;
+                    """,)
+    questions = cursor.fetchall()
+    return questions
