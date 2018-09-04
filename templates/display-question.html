@@ -11,7 +11,15 @@
     <p>Number of views: {{ question.view_number }}</p>
     <p>{{ question.message }}</p>
     <h3>Answers:</h3>
-
-    <br><a href="/question/{{ question.id }}/new-answer">Post an answer</a>
+        <table>
+            {% for answer in answers %}
+                <tr>
+                    <td>{{ answer.submission_time }}</td>
+                    <td>{{ answer.message }}</td>
+                </tr>
+            {% endfor %}
+        </table><br>
+    <a href="/question/{{ question.id }}/new-answer">Post an answer</a><br>
+    <a href="/list">Back to Questions</a>
 </body>
 </html>

@@ -7,9 +7,20 @@ def get_questions(cursor):
     cursor.execute("""
                     SELECT id,title FROM question
                     ORDER BY id;
-                   """)
+                   """,)
     id_and_question = cursor.fetchall()
     return id_and_question
+
+
+@database_common.connection_handler
+def get_answers(cursor, question_id):
+    cursor.execute("""
+                    SELECT submission_time, message FROM answer
+                    WHERE question_id = %(question_id)s;
+                    """,
+                   {'question_id': question_id})
+    answers = cursor.fetchall()
+    return answers
 
 
 @database_common.connection_handler
@@ -38,7 +49,7 @@ def get_last_five_questions(cursor):
 def add_question(cursor, question_title, question_message):
     submission_time = datetime.now()
     cursor.execute("""
-                    INSERT INTO question (submission_time, ,view_number, title, message)
+                    INSERT INTO question (submission_time, view_number, title, message)
                     VALUES(%(submission_time)s, 0, %(question_title)s, %(question_message)s);
                     """,
                    {'question_title': question_title, 'question_message': question_message,
@@ -70,5 +81,4 @@ def view_counter(cursor, id):
                       WHERE id = %(id)s;
                       """,
                    {'id': id, 'view': view})
-
 
