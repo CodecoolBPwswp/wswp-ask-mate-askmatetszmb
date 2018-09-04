@@ -8,9 +8,9 @@
         <h1>Add Question</h1>  <!-- Page title -->
         <form action="/add-question" method="post">  <!-- This form will send it's data as a POST request to 'http://localhost:5000/add-question' route when the user submits the form-->
             <label for="Title">Title</label>  <!-- Label for the textarea to help the user understand what is it for. -->
-            <textarea id="Title" name="Question Title" rows="1" cols="80">{{ question_title }}</textarea><br>
+            <textarea id="Title" name="question_title" rows="1" cols="80">{{question_title}}</textarea><br>
             <label for = "Message">Message</label>
-            <textarea id="Message" name="Question Message" rows = "8" cols="80">{{question_message}}</textarea>
+            <textarea id="Message" name="question_message" rows = "8" cols="80">{{question_message}}</textarea>
             <button type="submit">Save Question!</button>  <!-- Let's allow the user to submit the form. -->
         </form>
     </body>
