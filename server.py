@@ -9,8 +9,9 @@ app = Flask(__name__)
 @app.route('/list')
 @app.route('/')
 def index():
-    id_title = connection.data_maker()
-    return render_template('list.html', id_title=id_title)
+    id_and_question = datamanager.get_questions()
+    print(id_and_question)
+    return render_template('list.html', id_and_question=id_and_question)
 
 
 @app.route('/add-question')

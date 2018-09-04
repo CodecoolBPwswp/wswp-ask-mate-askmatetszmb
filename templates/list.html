@@ -7,11 +7,11 @@
 <body>
     <h1>Questions</h1>
     <p>
-        {% for id,title in id_title.items() %}
+        {% for thing in id_and_question %}
             <li>
-                <a href="/question/{{ id }}"> {{ title }}</a>
+                <a href="/question/{{ thing.id }}"> {{ thing.title }}</a>
             </li>
-        {% endfor %}
+        {% endfor%}
         <p></p><a href="/add-question"> Add Question</a></p>
     </ul>
 </body>
