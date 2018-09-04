@@ -30,3 +30,21 @@ def add_question(cursor, question_title, question_message):
                     """,
                    {'question_title': question_title, 'question_message': question_message,
                    'submission_time': submission_time})
+
+
+@database_common.connection_handler
+def view_counter(cursor, id):
+    cursor.execute("""
+                    SELECT view_number FROM question
+                    WHERE id = %(id)s;
+                    """,
+                   {'id': id})
+    view_numbers = cursor.fetchone()
+    view = view_numbers['view_number']
+    view += 1
+    cursor.execute("""UPDATE question
+                      SET view_number = %(view)s
+                      WHERE id = %(id)s;
+                      """,
+                   {'id': id, 'view': view})
+
