@@ -21,6 +21,18 @@ def display_question(cursor, id):
     question = cursor.fetchone()
     return question
 
+
+@database_common.connection_handler
+def get_last_five_questions(cursor):
+    cursor.execute("""
+                    SELECT id, title, submission_time, view_number FROM question
+                    ORDER BY submission_time DESC
+                    LIMIT 5;
+                    """,)
+    questions = cursor.fetchall()
+    return questions
+
+
 @database_common.connection_handler
 def add_question(cursor, question_title, question_message):
     submission_time = datetime.now()

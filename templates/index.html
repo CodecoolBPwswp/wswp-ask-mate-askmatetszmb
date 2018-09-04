@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ask Mate by DAMNet</title>
+</head>
+<body>
+    <h1>WELCOME to Ask Mate</h1>
+    <table>
+        <tr>
+            <th>Time of submission</th>
+            <th>Title</th>
+            <th>Number of views</th>
+        </tr>
+        {% for question in questions %}
+            <tr>
+                <td>{{ question.submission_time }}</td>
+                <td><a href="/question/{{ question.id }}">{{ question.title }}</a></td>
+                <td>{{ question.view_number }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p><a href="/list">Questions</a></p>
+</body>
+</html>
