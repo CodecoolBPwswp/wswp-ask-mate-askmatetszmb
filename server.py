@@ -20,8 +20,6 @@ def add_question():
 @app.route('/add-question', methods=['POST'])
 def route_save():
     question = request.form.to_dict()
-    print(question)
-    print(question['question_title'])
     question_title = question['question_title']
     question_message = question['question_message']
     datamanager.add_question(question_title, question_message)
