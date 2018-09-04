@@ -38,19 +38,37 @@ def get_last_five_questions(cursor):
 def add_question(cursor, question_title, question_message):
     submission_time = datetime.now()
     cursor.execute("""
-                    INSERT INTO question (submission_time, title, message)
-                    VALUES(%(submission_time)s, %(question_title)s, %(question_message)s);
+                    INSERT INTO question (submission_time, ,view_number, title, message)
+                    VALUES(%(submission_time)s, 0, %(question_title)s, %(question_message)s);
                     """,
                    {'question_title': question_title, 'question_message': question_message,
                     'submission_time': submission_time})
 
 
 @database_common.connection_handler
-def add_answer(cursor, answer_message, id):
+def add_answer(cursor, answer_message, question_id):
     submission_time = datetime.now()
     cursor.execute("""
-                    INSERT INTO question (submission_time, message)
-                    VALUES(%(submission_time)s, %(answer_message)s);
+                    INSERT INTO answer (submission_time, question_id, message)
+                    VALUES(%(submission_time)s, %(question_id)s, %(answer_message)s);
                     """,
-                   {'id': id, 'answer_message': answer_message,
-                    'submission_time': submission_time})
+                   {'submission_time': submission_time, 'question_id': question_id, 'answer_message': answer_message})
+
+
+@database_common.connection_handler
+def view_counter(cursor, id):
+    cursor.execute("""
+                    SELECT view_number FROM question
+                    WHERE id = %(id)s;
+                    """,
+                   {'id': id})
+    view_numbers = cursor.fetchone()
+    view = view_numbers['view_number']
+    view += 1
+    cursor.execute("""UPDATE question
+                      SET view_number = %(view)s
+                      WHERE id = %(id)s;
+                      """,
+                   {'id': id, 'view': view})
+
+

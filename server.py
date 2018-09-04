@@ -33,6 +33,7 @@ def route_save():
 
 @app.route('/question/<int:question_id>')
 def display_question(question_id=None):
+    datamanager.view_counter(question_id)
     question = datamanager.display_question(question_id)
     # answers = connection.get_answers(question_id)
     return render_template('display-question.html', question=question)
