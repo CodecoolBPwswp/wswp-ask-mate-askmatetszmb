@@ -37,8 +37,8 @@ def get_last_five_questions(cursor):
 def add_question(cursor, question_title, question_message):
     submission_time = datetime.now()
     cursor.execute("""
-                    INSERT INTO question (submission_time, title, message)
-                    VALUES(%(submission_time)s, %(question_title)s, %(question_message)s);
+                    INSERT INTO question (submission_time, ,view_number, title, message)
+                    VALUES(%(submission_time)s, 0, %(question_title)s, %(question_message)s);
                     """,
                    {'question_title': question_title, 'question_message': question_message,
                    'submission_time': submission_time})
