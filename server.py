@@ -1,5 +1,4 @@
 from flask import Flask, render_template, redirect, request
-import connection
 import datamanager
 
 
@@ -15,7 +14,6 @@ def index():
 @app.route('/list')
 def list_questions():
     id_and_question = datamanager.get_questions()
-    print(id_and_question)
     return render_template('list.html', id_and_question=id_and_question)
 
 
@@ -26,9 +24,10 @@ def add_question():
 
 @app.route('/add-question', methods=['POST'])
 def route_save():
-    question_title = request.form['Question Title']
-    question_message = request.form['Question Message']
-    datamanager.write_question('sample_data/question.csv', 4, question_title, question_message)
+    question = request.form.to_dict()
+    question_title = question['question_title']
+    question_message = question['question_message']
+    datamanager.add_question(question_title, question_message)
     return redirect('/list')
 
 
