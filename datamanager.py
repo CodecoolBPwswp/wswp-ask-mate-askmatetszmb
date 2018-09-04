@@ -47,7 +47,7 @@ def get_last_five_questions(cursor):
 
 @database_common.connection_handler
 def add_question(cursor, question_title, question_message):
-    submission_time = datetime.now()
+    submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
                     INSERT INTO question (submission_time, view_number, title, message)
                     VALUES(%(submission_time)s, 0, %(question_title)s, %(question_message)s);
@@ -58,7 +58,7 @@ def add_question(cursor, question_title, question_message):
 
 @database_common.connection_handler
 def add_answer(cursor, answer_message, question_id):
-    submission_time = datetime.now()
+    submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
                     INSERT INTO answer (submission_time, question_id, message)
                     VALUES(%(submission_time)s, %(question_id)s, %(answer_message)s);
