@@ -109,3 +109,11 @@ def get_query_comment(cursor, question_id):
                    {'question_id': question_id})
     comments = cursor.fetchall()
     return comments
+
+@database_common.connection_handler
+def delete_comment(cursor, comment_id):
+    cursor.execute("""
+                    DELETE FROM comment
+                    WHERE id = %(comment_id)s;
+                    """,
+                   {"comment_id": comment_id})

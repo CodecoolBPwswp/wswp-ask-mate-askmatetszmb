@@ -31,7 +31,7 @@ def save_question():
     return redirect('/list')
 
 
-@app.route('/question/<int:question_id>')
+@app.route('/question/<int:question_id>', methods=['GET', 'POST'])
 def display_question(question_id=None):
     datamanager.view_counter(question_id)
     question = datamanager.display_question(question_id)
@@ -77,6 +77,13 @@ def save_query_comment(question_id=None):
     query_comment = query_comment_pack['query_comment']
     datamanager.add_query_comment(question_id, query_comment)
     return redirect('/list')
+
+
+@app.route('/comments/<comment_id>/delete')
+def delete_commit_done(comment_id=None):
+    com_id = comment_id
+    datamanager.delete_comment(com_id)
+    return redirect("/list")
 
 
 if __name__ == "__main__":

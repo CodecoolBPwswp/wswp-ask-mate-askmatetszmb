@@ -22,7 +22,8 @@
         </table><br>
     <ul>
         {% for comment in comments %}
-            <li>{{ comment.submission_time }} : {{ comment.message }}</li>
+            <li>{{ comment.submission_time }} : {{ comment.message }}
+                <a href="/comments/{{ comment.id }}/delete">Delete comment</a></li>
         {% endfor %}
     </ul>
     <a href="/question/{{ question.id }}/new-answer">Post an answer</a><br>
