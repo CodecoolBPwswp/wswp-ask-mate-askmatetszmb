@@ -121,14 +121,27 @@ def add_new_comment(cursor, answer_id, new_comment):
 
 
 @database_common.connection_handler
-def get_new_comment(cursor, question_id):
+def get_answer_id(cursor, question_id):
     cursor.execute("""
-                    SELECT id, message, submission_time FROM comment 
-                    WHERE question_id = %(question_id)s;
-                    """,
+                    SELECT id FROM answer
+                    WHERE question_id = %(question_id)s;""",
                    {'question_id': question_id})
+    comm_answer_ids_pack = cursor.fetchall()
+    ids = [dicty['id'] for dicty in comm_answer_ids_pack]
+    return ids
+
+@database_common.connection_handler
+def get_answer_comment(cursor, ids):
+    answer_comments_ids = tuple(ids)
+    params = {'answer_comments_ids': answer_comments_ids}
+    cursor.execute("""
+                    SELECT submission_time, message FROM comment
+                    WHERE answer_id IN %(answer_comments_ids)s;""",
+                   params)
     answer_comments = cursor.fetchall()
     return answer_comments
+
+
 
 @database_common.connection_handler
 def delete_comment(cursor, comment_id):

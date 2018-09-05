@@ -37,9 +37,12 @@ def display_question(question_id=None):
     question = datamanager.display_question(question_id)
     answers = datamanager.get_answers(question_id)
     comments = datamanager.get_query_comment(question_id)
-    answer_comments = datamanager.get_new_comment(question_id)
-    print(answer_comments)
-    return render_template('display-question.html', question=question, answers=answers, comments=comments,
+    answer_ids = datamanager.get_answer_id(question_id)
+    if answer_ids == []:
+        return render_template('display-question.html', question=question, answers=answers, comments=comments)
+    else:
+        answer_comments = datamanager.get_answer_comment(answer_ids)
+        return render_template('display-question.html', question=question, answers=answers, comments=comments,
                            answer_comments=answer_comments)
 
 
@@ -83,15 +86,15 @@ def save_query_comment(question_id=None):
 
 
 @app.route('/answer/<answer_id>/new-comment')
-def new_comment(answer_id=None):
+def new_ans_comment(answer_id=None):
     return render_template('comment-to-answer.html', answer_id=answer_id)
 
 
 @app.route('/answer/<answer_id>/new-comment', methods=['POST'])
-def save_new_comment(answer_id=None):
-    a_new_comment = request.form.to_dict()
-    new_comment = a_new_comment['new_comment']
-    datamanager.add_new_comment(answer_id, new_comment)
+def save_answer_comment(answer_id=None):
+    answer_comment_pack = request.form.to_dict()
+    answer_comment = answer_comment_pack['new_comment']
+    datamanager.add_new_comment(answer_id, answer_comment)
     return redirect('/list')
 
 

@@ -26,14 +26,17 @@
                     <td>{{ answer.submission_time }}</td>
                     <td>{{ answer.message }}</td>
                     <td><a href='/answer/{{ answer.id }}/edit'>Edit answer</a></td>
-
                     <td><a href="/answer/{{ answer.id }}/new-comment">Add comment to answer</a></td>
                 </tr>
             {% endfor %}
         </table><br>
+
+    <h3>Answer comments</h3>
     <ul>
-        {% for a_comment in answer_comments %}
-            <li>{{ a_comment.submission_time }} : {{ a_comment.message }}</li>
+        {% for ans_comment in answer_comments %}
+            <li>
+                {{ ans_comment.submission_time }} : {{ ans_comment.message }}
+            </li>
         {% endfor %}
     </ul>
 
