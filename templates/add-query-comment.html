@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add query comment</title>
+</head>
+<body>
+    <h1>Add comment</h1>
+    <form action="/question/{{question_id}}/new-comment" method="post">
+        <label for="Title">Comment message</label>
+        <textarea id="comment" name="query_comment" rows="1" cols="80">{{query_comment}}</textarea><br>
+        <button type="submit">Save comment!</button>
+    </form>
+</body>
+</html>

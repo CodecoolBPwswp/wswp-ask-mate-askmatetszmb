@@ -17,11 +17,26 @@
                     <td>{{ answer.submission_time }}</td>
                     <td>{{ answer.message }}</td>
                     <td><a href='/answer/{{ answer.id }}/edit'>Edit answer</a></td>
-                    <td><a href="/answer/{{ answer.id }}/new-comment">Add comment</a></td>
+
+                    <td><a href="/answer/{{ answer.id }}/new-comment">Add comment to answer</a></td>
+                </tr>
+            {% endfor %}
+            {% for comment in answer_comments %}
+                <tr>
+                    <td>{{ comment.submission_time }}</td>
+                    <td>{{ comment.message }}</td>
+
                 </tr>
             {% endfor %}
         </table><br>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.submission_time }} : {{ comment.message }}</li>
+        {% endfor %}
+    </ul>
+
     <a href="/question/{{ question.id }}/new-answer">Post an answer</a><br>
+    <a href="/question/{{ question.id }}/new-comment">Add a comment</a><br>
     <a href="/list">Back to Questions</a>
 </body>
 </html>
