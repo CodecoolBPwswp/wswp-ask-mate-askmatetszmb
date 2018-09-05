@@ -23,7 +23,7 @@ def add_question():
 
 
 @app.route('/add-question', methods=['POST'])
-def route_save():
+def save_question():
     question = request.form.to_dict()
     question_title = question['question_title']
     question_message = question['question_message']
@@ -42,14 +42,14 @@ def display_question(question_id=None):
 
 @app.route('/question/<int:question_id>/new-answer')
 def new_answer(question_id=None):
-    return render_template('add-answer.html', id_=question_id)
+    return render_template('add-answer.html', question_id=question_id)
 
 
 @app.route('/question/<int:question_id>/new-answer', methods=['POST'])
 def save_answer(question_id=None):
     answer = request.form.to_dict()
     answer_message = answer['answer_message']
-    datamanager.add_answer(answer_message, question_id)
+    datamanager.add_answer(question_id, answer_message)
     return redirect('/list')
 
 
