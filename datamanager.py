@@ -91,6 +91,7 @@ def edit_answer(cursor, id, edited_answer):
                     WHERE id = %(id)s""",
                    {'id': id, 'edited_answer': edited_answer})
 
+
 @database_common.connection_handler
 def add_query_comment(cursor, question_id, query_comment):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -99,6 +100,7 @@ def add_query_comment(cursor, question_id, query_comment):
                     VALUES (%(question_id)s, %(query_comment)s, %(submission_time)s, 0); 
                     """, {'question_id': question_id, 'query_comment': query_comment,
                           'submission_time': submission_time})
+
 
 @database_common.connection_handler
 def get_query_comment(cursor, question_id):
@@ -109,6 +111,7 @@ def get_query_comment(cursor, question_id):
                    {'question_id': question_id})
     comments = cursor.fetchall()
     return comments
+
 
 @database_common.connection_handler
 def add_new_comment(cursor, answer_id, new_comment):
@@ -130,6 +133,7 @@ def get_answer_id(cursor, question_id):
     ids = [dicty['id'] for dicty in comm_answer_ids_pack]
     return ids
 
+
 @database_common.connection_handler
 def get_answer_comment(cursor, ids):
     answer_comments_ids = tuple(ids)
@@ -140,7 +144,6 @@ def get_answer_comment(cursor, ids):
                    params)
     answer_comments = cursor.fetchall()
     return answer_comments
-
 
 
 @database_common.connection_handler
