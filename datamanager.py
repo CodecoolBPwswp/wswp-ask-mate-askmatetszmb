@@ -135,7 +135,7 @@ def get_answer_comment(cursor, ids):
     answer_comments_ids = tuple(ids)
     params = {'answer_comments_ids': answer_comments_ids}
     cursor.execute("""
-                    SELECT submission_time, message FROM comment
+                    SELECT submission_time, message, answer_id FROM comment
                     WHERE answer_id IN %(answer_comments_ids)s;""",
                    params)
     answer_comments = cursor.fetchall()
