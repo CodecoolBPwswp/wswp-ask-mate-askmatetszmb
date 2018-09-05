@@ -11,12 +11,6 @@ def index():
     return render_template('index.html', questions=questions)
 
 
-@app.route('/list')
-def list_questions():
-    id_and_question = datamanager.get_questions()
-    return render_template('list.html', id_and_question=id_and_question)
-
-
 @app.route('/add-question')
 def add_question():
     return render_template('add-question.html')
