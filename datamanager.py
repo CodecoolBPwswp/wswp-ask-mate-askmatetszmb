@@ -91,3 +91,12 @@ def edit_answer(cursor, id, edited_answer):
                     WHERE id = %(id)s""",
                    {'id': id, 'edited_answer': edited_answer})
 
+
+@database_common.connection_handler
+def add_new_comment(cursor, answer_id, new_comment):
+    submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    cursor.execute("""
+                    INSERT INTO comment (answer_id, message, submission_time)
+                    VALUES (%(answer_id)s, %(new_comment)s, %(submission_time)s)""",
+                   {'answer_id': answer_id, 'new_comment': new_comment,
+                    'submission_time': submission_time})

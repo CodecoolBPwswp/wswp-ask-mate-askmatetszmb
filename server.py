@@ -65,6 +65,19 @@ def save_edit_answer(answer_id=None):
     return redirect('/list')
 
 
+@app.route('/answer/<answer_id>/new-comment')
+def new_comment(answer_id=None):
+    return render_template('comment-to-answer.html', answer_id=answer_id)
+
+
+@app.route('/answer/<answer_id>/new-comment', methods=['POST'])
+def save_new_comment(answer_id=None):
+    a_new_comment = request.form.to_dict()
+    new_comment = a_new_comment['new_comment']
+    datamanager.add_new_comment(answer_id, new_comment)
+    return redirect('/list')
+
+
 if __name__ == "__main__":
     app.run(
       debug=True,
