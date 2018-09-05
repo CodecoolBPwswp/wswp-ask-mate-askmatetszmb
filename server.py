@@ -36,7 +36,8 @@ def display_question(question_id=None):
     datamanager.view_counter(question_id)
     question = datamanager.display_question(question_id)
     answers = datamanager.get_answers(question_id)
-    return render_template('display-question.html', question=question, answers=answers)
+    comments =datamanager.get_query_comment(question_id)
+    return render_template('display-question.html', question=question, answers=answers, comments=comments)
 
 
 @app.route('/question/<int:question_id>/new-answer')
@@ -62,6 +63,19 @@ def save_edit_answer(answer_id=None):
     edited_answer_packed = request.form.to_dict()
     edited_answer = edited_answer_packed['edited_answer']
     datamanager.edit_answer(answer_id, edited_answer)
+    return redirect('/list')
+
+
+@app.route('/question/<int:question_id>/new-comment')
+def add_query_comment(question_id=None):
+    return render_template('add-query-comment.html', question_id=question_id)
+
+
+@app.route('/question/<int:question_id>/new-comment', methods=['POST'])
+def save_query_comment(question_id=None):
+    query_comment_pack = request.form.to_dict()
+    query_comment = query_comment_pack['query_comment']
+    datamanager.add_query_comment(question_id, query_comment)
     return redirect('/list')
 
 

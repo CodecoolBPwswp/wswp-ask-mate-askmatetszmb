@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add query comment</title>
+</head>
+<body>
+    <h1>Add comment</h1>
+    <form action="/question/{{question_id}}/new-comment" method="post">  <!-- This form will send it's data as a POST request to 'http://localhost:5000/add-question' route when the user submits the form-->
+        <label for="Title">Comment message</label>  <!-- Label for the textarea to help the user understand what is it for. -->
+        <textarea id="comment" name="query_comment" rows="1" cols="80">{{query_comment}}</textarea><br>
+        <button type="submit">Save Question!</button>  <!-- Let's allow the user to submit the form. -->
+    </form>
+</body>
+</html>

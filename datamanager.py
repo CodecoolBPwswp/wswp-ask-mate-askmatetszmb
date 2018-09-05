@@ -91,3 +91,21 @@ def edit_answer(cursor, id, edited_answer):
                     WHERE id = %(id)s""",
                    {'id': id, 'edited_answer': edited_answer})
 
+@database_common.connection_handler
+def add_query_comment(cursor, question_id, query_comment):
+    submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    cursor.execute("""
+                    INSERT INTO comment (question_id, message, submission_time, edited_count)
+                    VALUES (%(question_id)s, %(query_comment)s, %(submission_time)s, 0); 
+                    """, {'question_id': question_id, 'query_comment': query_comment,
+                          'submission_time': submission_time})
+
+@database_common.connection_handler
+def get_query_comment(cursor, question_id):
+    cursor.execute("""
+                    SELECT submission_time, id, message FROM comment
+                    WHERE question_id = %(question_id)s;
+                    """,
+                   {'question_id': question_id})
+    comments = cursor.fetchall()
+    return comments

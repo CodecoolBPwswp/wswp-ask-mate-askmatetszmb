@@ -20,7 +20,13 @@
                 </tr>
             {% endfor %}
         </table><br>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.submission_time }} : {{ comment.message }}</li>
+        {% endfor %}
+    </ul>
     <a href="/question/{{ question.id }}/new-answer">Post an answer</a><br>
+    <a href="/question/{{ question.id }}/new-comment">Add a comment</a><br>
     <a href="/list">Back to Questions</a>
 </body>
 </html>
