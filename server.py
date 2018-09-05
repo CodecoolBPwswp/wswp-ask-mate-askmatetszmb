@@ -31,14 +31,16 @@ def save_question():
     return redirect('/list')
 
 
-@app.route('/question/<int:question_id>')
+@app.route('/question/<int:question_id>', methods=['GET', 'POST'])
 def display_question(question_id=None):
     datamanager.view_counter(question_id)
     question = datamanager.display_question(question_id)
     answers = datamanager.get_answers(question_id)
     comments = datamanager.get_query_comment(question_id)
     answer_comments = datamanager.get_new_comment(question_id)
-    return render_template('display-question.html', question=question, answers=answers, comments=comments, answer_comments=answer_comments)
+    print(answer_comments)
+    return render_template('display-question.html', question=question, answers=answers, comments=comments,
+                           answer_comments=answer_comments)
 
 
 @app.route('/question/<int:question_id>/new-answer')
@@ -91,6 +93,13 @@ def save_new_comment(answer_id=None):
     new_comment = a_new_comment['new_comment']
     datamanager.add_new_comment(answer_id, new_comment)
     return redirect('/list')
+
+
+@app.route('/comments/<comment_id>/delete')
+def delete_commit_done(comment_id=None):
+    com_id = comment_id
+    datamanager.delete_comment(com_id)
+    return redirect("/list")
 
 
 if __name__ == "__main__":

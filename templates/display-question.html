@@ -10,6 +10,15 @@
     <p>Submission time: {{ question.submission_time }}</p>
     <p>Number of views: {{ question.view_number }}</p>
     <p>{{ question.message }}</p>
+    <h3>Question comments:</h3>
+        <ul>
+        {% for comment in comments %}
+            <li>{{ comment.submission_time }} : {{ comment.message }}
+                <a href="/comments/{{ comment.id }}/delete">Delete comment</a></li>
+        {% endfor %}
+        </ul>
+    <a href="/question/{{ question.id }}/new-comment">Add a comment</a><br>
+
     <h3>Answers:</h3>
         <table>
             {% for answer in answers %}
@@ -21,22 +30,15 @@
                     <td><a href="/answer/{{ answer.id }}/new-comment">Add comment to answer</a></td>
                 </tr>
             {% endfor %}
-            {% for comment in answer_comments %}
-                <tr>
-                    <td>{{ comment.submission_time }}</td>
-                    <td>{{ comment.message }}</td>
-
-                </tr>
-            {% endfor %}
         </table><br>
     <ul>
-        {% for comment in comments %}
-            <li>{{ comment.submission_time }} : {{ comment.message }}</li>
+        {% for a_comment in answer_comments %}
+            <li>{{ a_comment.submission_time }} : {{ a_comment.message }}</li>
         {% endfor %}
     </ul>
 
     <a href="/question/{{ question.id }}/new-answer">Post an answer</a><br>
-    <a href="/question/{{ question.id }}/new-comment">Add a comment</a><br>
+
     <a href="/list">Back to Questions</a>
 </body>
 </html>
