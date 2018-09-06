@@ -1,0 +1,36 @@
+h1 {
+    font-family: 'padmaa-Bold.1.1';
+    text-transform: uppercase;
+    text-align: center;
+}
+
+body{
+    background-image: url('background.jpg');
+    background-color: #A5D6D9;
+    padding: 20px;
+}
+
+td {
+    padding: 7px;
+    border: 1px solid black;
+}
+
+li {
+    padding: 7px;
+}
+
+button {
+    background-color: darkblue;
+    color: antiquewhite;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+}
+
+textarea {
+    margin: 10px;
+}
