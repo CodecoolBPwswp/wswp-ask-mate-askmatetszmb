@@ -8,11 +8,22 @@ body{
     background-image: url('background.jpg');
     background-color: #A5D6D9;
     padding: 20px;
+    position: center;
+    width: 800px;
+    margin: auto;
+}
+
+tr {
+    position: center;
+    text-align: center;
 }
 
 td {
     padding: 7px;
     border: 1px solid black;
+    position: center;
+    text-align: center;
+
 }
 
 li {
