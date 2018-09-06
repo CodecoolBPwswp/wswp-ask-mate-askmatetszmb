@@ -38,12 +38,12 @@ def display_question(question_id=None):
     answers = datamanager.get_answers(question_id)
     comments = datamanager.get_question_comment(question_id)
     answer_ids = datamanager.get_answer_id(question_id)
-    if answer_ids == []:
+    if answer_ids is []:
         return render_template('display-question.html', question=question, answers=answers, comments=comments)
     else:
         answer_comments = datamanager.get_answer_comment(answer_ids)
-        return render_template('display-question.html', question=question, answers=answers, comments=comments,
-                           answer_comments=answer_comments)
+        return render_template('display-question.html', question=question, answers=answers,
+                               comments=comments, answer_comments=answer_comments)
 
 
 @app.route('/question/<int:question_id>/new-answer')
@@ -73,20 +73,20 @@ def save_edit_answer(answer_id=None):
 
 
 @app.route('/question/<int:question_id>/new-comment')
-def add_query_comment(question_id=None):
+def add_question_comment(question_id=None):
     return render_template('add-query-comment.html', question_id=question_id)
 
 
 @app.route('/question/<int:question_id>/new-comment', methods=['POST'])
-def save_query_comment(question_id=None):
-    query_comment_pack = request.form.to_dict()
-    query_comment = query_comment_pack['query_comment']
-    datamanager.add_question_comment(question_id, query_comment)
+def save_question_comment(question_id=None):
+    question_comment_pack = request.form.to_dict()
+    question_comment = question_comment_pack['question_comment']
+    datamanager.add_question_comment(question_id, question_comment)
     return redirect('/list')
 
 
 @app.route('/answer/<answer_id>/new-comment')
-def new_ans_comment(answer_id=None):
+def add_answer_comment(answer_id=None):
     return render_template('comment-to-answer.html', answer_id=answer_id)
 
 
@@ -99,9 +99,8 @@ def save_answer_comment(answer_id=None):
 
 
 @app.route('/comments/<comment_id>/delete')
-def delete_commit_done(comment_id=None):
-    com_id = comment_id
-    datamanager.delete_comment(com_id)
+def delete_comment(comment_id=None):
+    datamanager.delete_comment(comment_id)
     return redirect("/list")
 
 
