@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add query comment</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
     <h1>Add comment</h1>
     <form action="/question/{{question_id}}/new-comment" method="post">
         <label for="Title">Comment message</label><br>
         <textarea id="comment" name="question_comment" rows="1" cols="80"></textarea><br>
         <button type="submit">Save comment!</button>
     </form>
-</body>
-</html>
+{% endblock %}

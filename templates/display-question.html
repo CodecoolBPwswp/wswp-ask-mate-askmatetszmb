@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Display a question</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
     <h1>{{ question.title }}</h1><br>
     <p>ID: {{ question.id }}</p>
     <p>Submission time: {{ question.submission_time }}</p>
@@ -44,5 +39,4 @@
     <a href="/question/{{ question.id }}/new-answer">Post an answer</a><br>
 
     <a href="/list">Back to Questions</a>
-</body>
-</html>
+{% endblock %}

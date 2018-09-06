@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List questions</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
     <h1>Questions</h1>
     <ul>
         {% for item in id_and_question %}
@@ -15,5 +10,4 @@
     </ul><br>
     <a href="/add-question">Ask a question</a><br>
     <a href="/">Back to Main page</a>
-</body>
-</html>
+{% endblock %}

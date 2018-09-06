@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Add Question</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
     <h1>Add Question</h1>
     <form action="/add-question" method="post">
         <label for="Title">Title</label><br>
@@ -13,5 +8,4 @@
         <textarea id="Message" name="question_message" rows = "8" cols="80"></textarea><br>
         <button type="submit">Save Question!</button>
     </form>
-</body>
-</html>
+{% endblock %}

@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit answer</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
     <form action="/answer/{{ answer_id }}/edit" method="post">
             <label for = "Answer">Answer</label><br>
             <textarea id="Answer" name="edited_answer" rows = "8" cols="80">{{edited_answer}}</textarea><br>
             <button type="submit">Save Answer!</button>
     </form>
-</body>
-</html>
+{% endblock %}
