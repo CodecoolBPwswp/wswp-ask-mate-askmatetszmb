@@ -21,9 +21,10 @@
         {% endfor %}
     </table>
     <p><a href="/list">Questions</a></p><br>
-    <form action="/list" method="post">
-        <label for="Title">Search</label>
-        <textarea id="search" name="search_message" rows="1" cols="20">{{search_message}}</textarea><br>
+
+    <form action="/search?q={{search_phrase}}" method="post">
+        <label for="search">Search</label>
+        <textarea id="search" name="search_text" rows="1" cols="20">{{search_text}}</textarea><br>
         <button type="submit">Search!</button>
     </form><br>
 </body>
