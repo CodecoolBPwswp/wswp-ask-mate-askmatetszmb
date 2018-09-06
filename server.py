@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, url_for
 import datamanager
 
 
@@ -36,7 +36,7 @@ def display_question(question_id=None):
     datamanager.view_counter(question_id)
     question = datamanager.display_question(question_id)
     answers = datamanager.get_answers(question_id)
-    comments = datamanager.get_query_comment(question_id)
+    comments = datamanager.get_question_comment(question_id)
     answer_ids = datamanager.get_answer_id(question_id)
     if answer_ids == []:
         return render_template('display-question.html', question=question, answers=answers, comments=comments)
@@ -81,7 +81,7 @@ def add_query_comment(question_id=None):
 def save_query_comment(question_id=None):
     query_comment_pack = request.form.to_dict()
     query_comment = query_comment_pack['query_comment']
-    datamanager.add_query_comment(question_id, query_comment)
+    datamanager.add_question_comment(question_id, query_comment)
     return redirect('/list')
 
 
@@ -103,6 +103,19 @@ def delete_commit_done(comment_id=None):
     com_id = comment_id
     datamanager.delete_comment(com_id)
     return redirect("/list")
+
+
+@app.route('/', methods=['POST'])
+def search():
+    data = request.form.to_dict()
+    search_phrase = data['search_phrase']
+    return redirect(url_for('show_search', search_phrase=search_phrase))
+
+
+@app.route('/search?q=<string:search_phrase>')
+def show_search(search_phrase=None):
+    results = datamanager.search(search_phrase)
+    return render_template('search-result.html', results=results)
 
 
 if __name__ == "__main__":
