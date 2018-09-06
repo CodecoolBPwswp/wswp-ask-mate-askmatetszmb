@@ -45,3 +45,7 @@ label {
 textarea {
     margin: 10px;
 }
+
+p.question-message {
+    font-size: 20px;
+}
