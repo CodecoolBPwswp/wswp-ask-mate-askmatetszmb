@@ -7,9 +7,9 @@ h1 {
 body{
     background-image: url('background.jpg');
     background-color: #A5D6D9;
-    position: center;
-    width: 1000px;
+    width: 800px;
     margin: auto;
+    position: center;
 }
 
 tr {
@@ -18,6 +18,18 @@ tr {
 }
 
 td {
+
+    margin: auto;
+    padding: 7px;
+    border: 1px solid black;
+    position: center;
+    text-align: center;
+
+}
+
+th {
+
+    margin: auto;
     padding: 7px;
     border: 1px solid black;
     position: center;
@@ -26,6 +38,11 @@ td {
 }
 
 li {
+    padding: 7px;
+    margin: 7px;
+}
+
+.comments {
     padding: 7px;
     margin: 7px;
 }
