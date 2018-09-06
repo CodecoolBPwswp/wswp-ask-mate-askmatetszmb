@@ -160,12 +160,14 @@ def delete_comment(cursor, comment_id):
 
 
 @database_common.connection_handler
-def search(cursor, text):
+def search(cursor, user_input):
+    text = "%" + user_input + "%"
+    params = {'text': text}
     cursor.execute("""
-                    SELECT DISTINCT q.title FROM question q
+                    SELECT DISTINCT q.title, q.id FROM question q
                     INNER JOIN answer a on q.id = a.question_id
                     WHERE q.title ILIKE %(text)s OR q.message ILIKE %(text)s OR a.message ILIKE %(text)s;
                     """,
-                   {'text': text})
+                   params)
     result = cursor.fetchall()
     return result
