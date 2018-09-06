@@ -167,3 +167,5 @@ def search(cursor, text):
                     WHERE q.title ILIKE %(text)s OR q.message ILIKE %(text)s OR a.message ILIKE %(text)s;
                     """,
                    {'text': text})
+    result = cursor.fetchall()
+    return result
