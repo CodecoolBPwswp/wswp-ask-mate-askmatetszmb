@@ -7,9 +7,8 @@ h1 {
 body{
     background-image: url('background.jpg');
     background-color: #A5D6D9;
-    padding: 20px;
     position: center;
-    width: 800px;
+    width: 1000px;
     margin: auto;
 }
 
@@ -56,3 +55,6 @@ p {
     margin: 5px;
 }
 
+#comment {
+    border: none;
+}

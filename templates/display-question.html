@@ -31,16 +31,16 @@
                     <td>{{ answer.message }}</td>
                     <td><a href='/answer/{{ answer.id }}/edit'>Edit answer</a></td>
                     <td><a href="/answer/{{ answer.id }}/new-comment">Add comment to answer</a></td>
-                {% if answer_comments == None %}
-                <td>
-                <ul>
-                {% for ans_comment in answer_comments %}
-                    {% if ans_comment.answer_id == answer.id %}
-                        <li>{{ ans_comment.submission_time }} : {{ ans_comment.message }}</li>
-                    {%  endif %}
-                {% endfor %}
-                </ul>
-                 </td>
+                {% if answer_comments %}
+                    <td id="comment">
+                    <ul>
+                    {% for ans_comment in answer_comments %}
+                        {% if ans_comment.answer_id == answer.id %}
+                            <li>{{ ans_comment.submission_time }} : {{ ans_comment.message }}</li>
+                        {%  endif %}
+                    {% endfor %}
+                    </ul>
+                    </td>
                 {% endif %}
                 </tr>
             {% endfor %}
