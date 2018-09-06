@@ -39,7 +39,8 @@ def display_question(question_id=None):
     comments = datamanager.get_question_comment(question_id)
     answer_ids = datamanager.get_answer_id(question_id)
     if answer_ids == []:
-        return render_template('display-question.html', question=question, answers=answers, comments=comments)
+        return render_template('display-question.html', question=question, answers=answers, comments=comments,
+                               answer_comments=None)
     else:
         answer_comments = datamanager.get_answer_comment(answer_ids)
         return render_template('display-question.html', question=question, answers=answers,
