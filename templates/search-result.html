@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search results</title>
+</head>
+<body>
+    <h1>Search results</h1>
+    <ul>
+        {% for result in results %}
+            <li>
+                <a href="/question/{{ result.id }}"> {{ result.title }}</a>
+            </li>
+        {% endfor%}
+    </ul><br>
+    <a href="/">Back to Main page</a>
+</body>
+</html>
