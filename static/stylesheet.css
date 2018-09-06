@@ -28,6 +28,7 @@ td {
 
 li {
     padding: 7px;
+    margin: 7px;
 }
 
 button {
@@ -49,3 +50,9 @@ textarea {
 p.question-message {
     font-size: 20px;
 }
+
+
+p {
+    margin: 5px;
+}
+

@@ -31,6 +31,7 @@
                     <td>{{ answer.message }}</td>
                     <td><a href='/answer/{{ answer.id }}/edit'>Edit answer</a></td>
                     <td><a href="/answer/{{ answer.id }}/new-comment">Add comment to answer</a></td>
+                {% if answer_comments == None %}
                 <td>
                 <ul>
                 {% for ans_comment in answer_comments %}
@@ -40,12 +41,10 @@
                 {% endfor %}
                 </ul>
                  </td>
+                {% endif %}
                 </tr>
             {% endfor %}
         </table><br>
-
-
-    <a href="/question/{{ question.id }}/new-answer">Post an answer</a><br>
-
-    <a href="/list">Back to Questions</a>
+    <p><a href="/question/{{ question.id }}/new-answer">Post an answer</a></p><br>
+    <p><a href="/list">Back to Questions</a></p>
 {% endblock %}
