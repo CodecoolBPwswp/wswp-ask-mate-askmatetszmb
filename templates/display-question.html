@@ -15,12 +15,10 @@
     </table><br>
     <p class="question-message ">{{ question.message }}</p>
     <h4>Question comments:</h4>
-        <ul>
         {% for comment in comments %}
-            <li>{{ comment.submission_time }} : {{ comment.message }}
-                <a href="/comments/{{ comment.id }}/delete">Delete comment</a></li>
+            <p class="comments">{{ comment.submission_time }} : {{ comment.message }}
+                <a href="/comments/{{ comment.id }}/delete">Delete comment</a></p>
         {% endfor %}
-        </ul>
     <a href="/question/{{ question.id }}/new-comment">Add a comment</a><br>
 
     <h4>Answers:</h4>
@@ -33,13 +31,11 @@
                     <td><a href="/answer/{{ answer.id }}/new-comment">Add comment to answer</a></td>
                 {% if answer_comments %}
                     <td id="comment">
-                    <ul>
                     {% for ans_comment in answer_comments %}
                         {% if ans_comment.answer_id == answer.id %}
-                            <li>{{ ans_comment.submission_time }} : {{ ans_comment.message }}</li>
+                            <p class="comments">{{ ans_comment.submission_time }} : {{ ans_comment.message }}</p>
                         {%  endif %}
                     {% endfor %}
-                    </ul>
                     </td>
                 {% endif %}
                 </tr>
