@@ -2,9 +2,9 @@
 {% block content %}
     <h1>Questions</h1>
     <ul>
-        {% for item in id_and_question %}
+        {% for question in questions %}
             <li>
-                <a href="/question/{{ item.id }}"> {{ item.title }}</a>
+                <a href="/question/{{ question.id }}"> {{ question.title }}</a>
             </li>
         {% endfor%}
     </ul><br>

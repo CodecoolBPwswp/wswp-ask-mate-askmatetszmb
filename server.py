@@ -7,14 +7,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    questions = datamanager.get_last_five_questions()
+    limit = 5
+    questions = datamanager.get_questions(limit)
     return render_template('index.html', questions=questions)
 
 
 @app.route('/list')
 def list_questions():
-    id_and_question = datamanager.get_questions()
-    return render_template('list.html', id_and_question=id_and_question)
+    questions = datamanager.get_questions()
+    return render_template('list.html', questions=questions)
 
 
 @app.route('/add-question')
@@ -39,11 +40,17 @@ def display_question(question_id=None):
     comments = datamanager.get_question_comment(question_id)
     answer_ids = datamanager.get_answer_id(question_id)
     if answer_ids==[]:
-        return render_template('display-question.html', question=question, answers=answers, comments=comments)
+        return render_template('display-question.html',
+                               question=question,
+                               answers=answers,
+                               comments=comments)
     else:
         answer_comments = datamanager.get_answer_comment(answer_ids)
-        return render_template('display-question.html', question=question, answers=answers,
-                               comments=comments, answer_comments=answer_comments)
+        return render_template('display-question.html',
+                               question=question,
+                               answers=answers,
+                               comments=comments,
+                               answer_comments=answer_comments)
 
 
 @app.route('/question/<int:question_id>/new-answer')

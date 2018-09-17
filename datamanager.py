@@ -3,19 +3,23 @@ from datetime import datetime
 
 
 @database_common.connection_handler
-def get_questions(cursor):
+def get_questions(cursor, limit_num=None):
     cursor.execute("""
-                    SELECT id,title FROM question
-                    ORDER BY id;
-                   """,)
-    id_and_question = cursor.fetchall()
-    return id_and_question
+                    SELECT id, title, submission_time, view_number
+                    FROM question
+                    ORDER BY submission_time DESC
+                    LIMIT %(limit_num)s;
+                   """,
+                   {'limit_num': limit_num})
+    questions = cursor.fetchall()
+    return questions
 
 
 @database_common.connection_handler
 def get_answers(cursor, question_id):
     cursor.execute("""
-                    SELECT submission_time, id, message FROM answer
+                    SELECT submission_time, id, message
+                    FROM answer
                     WHERE question_id = %(question_id)s;
                     """,
                    {'question_id': question_id})
@@ -35,24 +39,14 @@ def display_question(cursor, id):
 
 
 @database_common.connection_handler
-def get_last_five_questions(cursor):
-    cursor.execute("""
-                    SELECT id, title, submission_time, view_number FROM question
-                    ORDER BY submission_time DESC
-                    LIMIT 5;
-                    """,)
-    questions = cursor.fetchall()
-    return questions
-
-
-@database_common.connection_handler
 def add_question(cursor, question_title, question_message):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
                     INSERT INTO question (submission_time, view_number, title, message)
                     VALUES(%(submission_time)s, 0, %(question_title)s, %(question_message)s);
                     """,
-                   {'question_title': question_title, 'question_message': question_message,
+                   {'question_title': question_title,
+                    'question_message': question_message,
                     'submission_time': submission_time})
 
 
@@ -63,13 +57,16 @@ def add_answer(cursor, question_id, answer_message):
                     INSERT INTO answer (submission_time, question_id, message)
                     VALUES(%(submission_time)s, %(question_id)s, %(answer_message)s);
                     """,
-                   {'submission_time': submission_time, 'question_id': question_id, 'answer_message': answer_message})
+                   {'submission_time': submission_time,
+                    'question_id': question_id,
+                    'answer_message': answer_message})
 
 
 @database_common.connection_handler
 def view_counter(cursor, id):
     cursor.execute("""
-                    SELECT view_number FROM question
+                    SELECT view_number
+                    FROM question
                     WHERE id = %(id)s;
                     """,
                    {'id': id})
@@ -99,14 +96,16 @@ def add_question_comment(cursor, question_id, query_comment):
                     INSERT INTO comment (question_id, message, submission_time, edited_count)
                     VALUES (%(question_id)s, %(query_comment)s, %(submission_time)s, 0); 
                     """,
-                   {'question_id': question_id, 'query_comment': query_comment,
+                   {'question_id': question_id,
+                    'query_comment': query_comment,
                     'submission_time': submission_time})
 
 
 @database_common.connection_handler
 def get_question_comment(cursor, question_id):
     cursor.execute("""
-                    SELECT submission_time, id, message FROM comment
+                    SELECT submission_time, id, message
+                    FROM comment
                     WHERE question_id = %(question_id)s;
                     """,
                    {'question_id': question_id})
@@ -121,31 +120,34 @@ def add_new_comment(cursor, answer_id, new_comment):
                     INSERT INTO comment (answer_id, message, submission_time)
                     VALUES (%(answer_id)s, %(new_comment)s, %(submission_time)s);
                     """,
-                   {'answer_id': answer_id, 'new_comment': new_comment,
+                   {'answer_id': answer_id,
+                    'new_comment': new_comment,
                     'submission_time': submission_time})
 
 
 @database_common.connection_handler
 def get_answer_id(cursor, question_id):
     cursor.execute("""
-                    SELECT id FROM answer
+                    SELECT id
+                    FROM answer
                     WHERE question_id = %(question_id)s;
                     """,
                    {'question_id': question_id})
-    comm_answer_ids_pack = cursor.fetchall()
-    ids = [dicty['id'] for dicty in comm_answer_ids_pack]
+    ids_pack = cursor.fetchall()
+    ids = [id_dict['id'] for id_dict in ids_pack]
     return ids
 
 
 @database_common.connection_handler
 def get_answer_comment(cursor, ids):
     answer_comments_ids = tuple(ids)
-    params = {'answer_comments_ids': answer_comments_ids}
+    parameter = {'answer_comments_ids': answer_comments_ids}
     cursor.execute("""
-                    SELECT submission_time, message, answer_id FROM comment
+                    SELECT submission_time, message, answer_id
+                    FROM comment
                     WHERE answer_id IN %(answer_comments_ids)s;
                     """,
-                   params)
+                   parameter)
     answer_comments = cursor.fetchall()
     return answer_comments
 
@@ -162,12 +164,14 @@ def delete_comment(cursor, comment_id):
 @database_common.connection_handler
 def search(cursor, user_input):
     text = "%" + user_input + "%"
-    params = {'text': text}
+    parameter = {'text': text}
     cursor.execute("""
-                    SELECT DISTINCT q.title, q.id FROM question q
-                    FULL JOIN answer a on q.id = a.question_id
+                    SELECT DISTINCT q.title, q.id
+                    FROM question q
+                    FULL JOIN answer a
+                        ON q.id = a.question_id
                     WHERE q.title ILIKE %(text)s OR q.message ILIKE %(text)s OR a.message ILIKE %(text)s;
                     """,
-                   params)
+                   parameter)
     result = cursor.fetchall()
     return result
