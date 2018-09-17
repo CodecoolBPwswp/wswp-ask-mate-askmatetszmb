@@ -39,7 +39,7 @@ def display_question(question_id=None):
     answers = datamanager.get_answers(question_id)
     comments = datamanager.get_question_comment(question_id)
     answer_ids = datamanager.get_answer_id(question_id)
-    if answer_ids==[]:
+    if answer_ids == []:
         return render_template('display-question.html',
                                question=question,
                                answers=answers,
@@ -54,7 +54,7 @@ def display_question(question_id=None):
 
 
 @app.route('/question/<int:question_id>/new-answer')
-def new_answer(question_id=None):
+def add_answer(question_id=None):
     return render_template('add-answer.html', question_id=question_id)
 
 
@@ -72,7 +72,7 @@ def edit_answer(answer_id=None):
 
 
 @app.route('/answer/<answer_id>/edit', methods=['POST'])
-def save_edit_answer(answer_id=None):
+def save_edited_answer(answer_id=None):
     edited_answer_packed = request.form.to_dict()
     edited_answer = edited_answer_packed['edited_answer']
     datamanager.edit_answer(answer_id, edited_answer)
@@ -101,7 +101,7 @@ def add_answer_comment(answer_id=None):
 def save_answer_comment(answer_id=None):
     answer_comment_pack = request.form.to_dict()
     answer_comment = answer_comment_pack['new_comment']
-    datamanager.add_new_comment(answer_id, answer_comment)
+    datamanager.add_answer_comment(answer_id, answer_comment)
     return redirect('/list')
 
 
@@ -119,7 +119,7 @@ def search():
 
 
 @app.route('/search?q=<string:search_phrase>')
-def show_search(search_phrase=None):
+def show_search_result(search_phrase=None):
     results = datamanager.search(search_phrase)
     return render_template('search-result.html', results=results)
 

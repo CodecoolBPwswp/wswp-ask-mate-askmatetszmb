@@ -114,7 +114,7 @@ def get_question_comment(cursor, question_id):
 
 
 @database_common.connection_handler
-def add_new_comment(cursor, answer_id, new_comment):
+def add_answer_comment(cursor, answer_id, new_comment):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
                     INSERT INTO comment (answer_id, message, submission_time)
