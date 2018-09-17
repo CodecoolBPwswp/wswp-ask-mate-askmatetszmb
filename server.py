@@ -115,7 +115,7 @@ def delete_comment(comment_id=None):
 def search():
     data = request.form.to_dict()
     search_phrase = data['search_phrase']
-    return redirect(url_for('show_search', search_phrase=search_phrase))
+    return redirect(url_for('show_search_result', search_phrase=search_phrase))
 
 
 @app.route('/search?q=<string:search_phrase>')
