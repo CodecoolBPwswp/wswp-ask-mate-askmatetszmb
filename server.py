@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, request, url_for
 import datamanager
-
+import utility
 
 app = Flask(__name__)
 
@@ -108,7 +108,7 @@ def save_answer_comment(answer_id=None):
 @app.route('/comments/<comment_id>/delete')
 def delete_comment(comment_id=None):
     datamanager.delete_comment(comment_id)
-    return redirect("/list")
+    return redirect('/list')
 
 
 @app.route('/', methods=['POST'])
@@ -122,6 +122,19 @@ def search():
 def show_search_result(search_phrase=None):
     results = datamanager.search(search_phrase)
     return render_template('search-result.html', results=results)
+
+
+@app.route('/registration', methods=['GET', 'POST'])
+def registration():
+    if request.method == 'GET':
+        return render_template('registration.html')
+    else:
+        user_data = request.form.to_dict()
+        user_name = user_data['user_name']
+        user_password = user_data['password']
+        hashed_password = utility.hash_password(user_password)
+        datamanager.register_user(user_name, hashed_password)
+        return redirect('/')
 
 
 if __name__ == "__main__":

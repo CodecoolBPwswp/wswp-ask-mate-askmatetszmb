@@ -175,3 +175,13 @@ def search(cursor, user_input):
                    parameter)
     result = cursor.fetchall()
     return result
+
+
+@database_common.connection_handler
+def register_user(cursor, user_name, password):
+    registration_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    cursor.execute("""
+                    INSERT INTO users (user_name, password, registration_date)
+                    VALUES (%(user_name)s, %(password)s, %(registration_date)s )
+                    """,
+                   {'user_name': user_name, 'password': password, 'registration_date': registration_date})
