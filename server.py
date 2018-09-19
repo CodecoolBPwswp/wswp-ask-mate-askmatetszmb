@@ -1,15 +1,19 @@
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, session
 import datamanager
 import utility
 
 app = Flask(__name__)
+app.secret_key = 'somethingreallysecret'
 
 
 @app.route('/')
 def index():
     limit = 5
     questions = datamanager.get_questions(limit)
-    return render_template('index.html', questions=questions)
+    username = None
+    if 'user_name' in session:
+        username = session['user_name']
+    return render_template('index.html', questions=questions, username=username)
 
 
 @app.route('/list')
@@ -126,21 +130,50 @@ def show_search_result(search_phrase=None):
 
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
-    if request.method == 'GET':
-        return render_template('registration.html')
-    else:
+    if request.method == 'POST':
         user_data = request.form.to_dict()
         user_name = user_data['user_name']
         user_password = user_data['password']
         hashed_password = utility.hash_password(user_password)
-        datamanager.register_user(user_name, hashed_password)
-        return redirect('/')
+        try:
+            datamanager.register_user(user_name, hashed_password)
+            return redirect('/')
+        except:
+            return render_template('registration.html')
+    else:
+        return render_template('registration.html')
 
 
 @app.route('/list-registered-users')
 def list_registered_users():
     registered_users = datamanager.list_users()
     return render_template('/list-registered-users.html', registered_users=registered_users)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        user_data = request.form.to_dict()
+        user_name = user_data['user_name']
+        user_password = user_data['password']
+        user = datamanager.get_user_data(user_name)
+        if user is None:
+            return redirect(url_for('login'))
+        hashed_password = user['password']
+        is_matching = utility.verify_password(user_password, hashed_password)
+        if is_matching is True:
+            session['user_name'] = user_data['user_name']
+            return redirect(url_for('index'))
+        else:
+            return redirect(url_for('login'))
+    else:
+        return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user_name', None)
+    return redirect(url_for('index'))
 
 
 if __name__ == "__main__":
