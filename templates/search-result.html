@@ -1,16 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Search results</h1>
+    <h2>Search results:</h2>
     {% if results == [] %}
         <p>No results found</p><br>
     {% else %}
-        <ul>
         {% for result in results %}
-            <li>
+            <p>
                 <a href="/question/{{ result.id }}"> {{ result.title }}</a>
-            </li>
+            </p>
         {% endfor%}
-        </ul><br>
     {% endif %}
-    <a href="/">Back to Main page</a>
+    <a class="animated" href="/">Back to Main page</a>
 {% endblock %}
