@@ -104,3 +104,11 @@ a:link, a:visited {
     text-align: center;
     display: inline-block;
 }
+
+a.button:link, a.button:visited {
+    color: purple;
+    padding: 7px 8px;
+    text-align: center;
+    display: inline-block;
+    -webkit-appearance: button;
+}
