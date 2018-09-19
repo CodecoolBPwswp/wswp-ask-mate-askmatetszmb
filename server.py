@@ -22,18 +22,16 @@ def list_questions():
     return render_template('list.html', questions=questions)
 
 
-@app.route('/add-question')
+@app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
-    return render_template('add-question.html')
-
-
-@app.route('/add-question', methods=['POST'])
-def save_question():
-    question = request.form.to_dict()
-    question_title = question['question_title']
-    question_message = question['question_message']
-    datamanager.add_question(question_title, question_message)
-    return redirect('/list')
+    if request.method == 'POST':
+        question = request.form.to_dict()
+        question_title = question['question_title']
+        question_message = question['question_message']
+        datamanager.add_question(question_title, question_message)
+        return redirect('/list')
+    else:
+        return render_template('add-question.html')
 
 
 @app.route('/question/<int:question_id>', methods=['GET', 'POST'])
@@ -57,56 +55,48 @@ def display_question(question_id=None):
                                answer_comments=answer_comments)
 
 
-@app.route('/question/<int:question_id>/new-answer')
+@app.route('/question/<int:question_id>/new-answer', methods=['GET', 'POST'])
 def add_answer(question_id=None):
-    return render_template('add-answer.html', question_id=question_id)
+    if request.method == 'POST':
+        answer = request.form.to_dict()
+        answer_message = answer['answer_message']
+        datamanager.add_answer(question_id, answer_message)
+        return redirect(url_for('display_question', question_id=question_id))
+    else:
+        return render_template('add-answer.html', question_id=question_id)
 
 
-@app.route('/question/<int:question_id>/new-answer', methods=['POST'])
-def save_answer(question_id=None):
-    answer = request.form.to_dict()
-    answer_message = answer['answer_message']
-    datamanager.add_answer(question_id, answer_message)
-    return redirect('/list')
-
-
-@app.route('/answer/<answer_id>/edit')
+@app.route('/answer/<answer_id>/edit', methods=['GET', 'POST'])
 def edit_answer(answer_id=None):
-    return render_template('edit-answer.html', answer_id=answer_id)
+    if request.method == 'POST':
+        edited_answer_packed = request.form.to_dict()
+        edited_answer = edited_answer_packed['edited_answer']
+        datamanager.edit_answer(answer_id, edited_answer)
+        return redirect('/list')
+    else:
+        return render_template('edit-answer.html', answer_id=answer_id)
 
 
-@app.route('/answer/<answer_id>/edit', methods=['POST'])
-def save_edited_answer(answer_id=None):
-    edited_answer_packed = request.form.to_dict()
-    edited_answer = edited_answer_packed['edited_answer']
-    datamanager.edit_answer(answer_id, edited_answer)
-    return redirect('/list')
-
-
-@app.route('/question/<int:question_id>/new-comment')
+@app.route('/question/<int:question_id>/new-comment', methods=['GET', 'POST'])
 def add_question_comment(question_id=None):
-    return render_template('add-query-comment.html', question_id=question_id)
+    if request.method == 'POST':
+        question_comment_pack = request.form.to_dict()
+        question_comment = question_comment_pack['question_comment']
+        datamanager.add_question_comment(question_id, question_comment)
+        return redirect(url_for('display_question', question_id=question_id))
+    else:
+        return render_template('add-question-comment.html', question_id=question_id)
 
 
-@app.route('/question/<int:question_id>/new-comment', methods=['POST'])
-def save_question_comment(question_id=None):
-    question_comment_pack = request.form.to_dict()
-    question_comment = question_comment_pack['question_comment']
-    datamanager.add_question_comment(question_id, question_comment)
-    return redirect('/list')
-
-
-@app.route('/answer/<answer_id>/new-comment')
+@app.route('/answer/<int:answer_id>/new-comment', methods=['GET', 'POST'])
 def add_answer_comment(answer_id=None):
-    return render_template('comment-to-answer.html', answer_id=answer_id)
-
-
-@app.route('/answer/<answer_id>/new-comment', methods=['POST'])
-def save_answer_comment(answer_id=None):
-    answer_comment_pack = request.form.to_dict()
-    answer_comment = answer_comment_pack['new_comment']
-    datamanager.add_answer_comment(answer_id, answer_comment)
-    return redirect('/list')
+    if request.method == 'POST':
+        answer_comment_pack = request.form.to_dict()
+        answer_comment = answer_comment_pack['answer_comment']
+        datamanager.add_answer_comment(answer_id, answer_comment)
+        return redirect('/list')
+    else:
+        return render_template('add-answer-comment.html', answer_id=answer_id)
 
 
 @app.route('/comments/<comment_id>/delete')
@@ -147,7 +137,7 @@ def registration():
 @app.route('/list-registered-users')
 def list_registered_users():
     registered_users = datamanager.list_users()
-    return render_template('/list-registered-users.html', registered_users=registered_users)
+    return render_template('list-registered-users.html', registered_users=registered_users)
 
 
 @app.route('/login', methods=['GET', 'POST'])
