@@ -196,3 +196,15 @@ def list_users(cursor):
                     """)
     users = cursor.fetchall()
     return users
+
+
+@database_common.connection_handler
+def get_user_data(cursor, user_name):
+    cursor.execute("""
+                    SELECT id, user_name, password
+                    FROM users
+                    WHERE user_name = %(user_name)s
+                    """,
+                   {'user_name': user_name})
+    user_data = cursor.fetchone()
+    return user_data
