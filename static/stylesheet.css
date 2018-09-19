@@ -1,7 +1,7 @@
 h1 {
-    font-family: 'padmaa-Bold.1.1';
     text-transform: uppercase;
     text-align: center;
+    color: darkblue;
 }
 
 html, body {
@@ -23,41 +23,19 @@ body{
     text-align: center;
     display: table-cell;
     vertical-align: middle;
+    font-family: 'Aclonica';
 }
 
-tr {
-    position: center;
-    text-align: center;
-}
 
-td {
-    padding: 7px;
-    border: 1px solid black;
-    position: center;
-    text-align: center;
-}
 
 th {
-    padding: 7px;
-    border: 1px solid black;
-    position: center;
-    text-align: center;
-}
-
-li {
-    margin: 7px;
-    list-style: none;
+    font-size: 22px;
+    padding: 6px;
 }
 
 .comments {
     padding: 7px;
     margin: 7px;
-}
-
-button {
-    background-color: darkblue;
-    color: antiquewhite;
-    font-weight: bold;
 }
 
 label {
@@ -90,12 +68,12 @@ table {
     empty-cells: hide;
 }
 table, th, td {
-    border: 1px solid black;
+    border: 2px solid darkblue;
     position: center;
     margin: auto;
 }
 a:hover, a:active {
-    background-color: darksalmon;
+    background-color: #ffb3da;
     border-radius: 12px;
 }
 a:link, a:visited {
@@ -170,8 +148,11 @@ a.button:link, a.button:visited {
     -webkit-appearance: button;
 }
 
-a.animated:link, a.animated:visited,
-button.animated:link, button.animated:visited {
+.animated:link, .animated:visited {
+    color: darkblue;
+}
+
+.animated {
     width: 150px;
 	position: relative;
 	display: block;
@@ -192,9 +173,7 @@ button.animated:link, button.animated:visited {
 	-o-transition: all 1s ease;
 	transition: all 1s ease;
 }
-
-a.animated:link:after, a.animated:visited:after,
-button.animated:link:after, button.animated:visited:after {
+.animated:after {
 	content: "";
 	position: absolute;
 	height: 0%;
@@ -208,48 +187,28 @@ button.animated:link:after, button.animated:visited:after {
 	transition: all 0.75s ease 0s;
 }
 
-a.animated:link:hover, a.animated:visited:hover,
-button.animated:link:hover, button.animated:visited:hover {
+.animated:hover {
+    background: #007399;
 	color: #FFF;
 	text-shadow: none;
 }
 
-a.animated:link:hover:after, a.animated:visited:hover:after,
-button.animated:link:hover:after, button.animated:visited:hover:after {
+.animated:hover:after {
 	height: 450%;
 }
 
-a.animated:link, a.animated:visited,
-button.animated:link, button.animated:visited {
-	position: relative;
-	display: block;
-	margin: 30px auto 0;
-	padding: 14px 15px;
-	color: #fff;
-	font-size:14px;
-	border-radius: 0;
-	font-weight: bold;
-	text-align: center;
-	text-decoration: none;
-	text-transform: uppercase;
-	overflow: hidden;
-	letter-spacing: .08em;
-	text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
-	-webkit-transition: all 1s ease;
-	-moz-transition: all 1s ease;
-	-o-transition: all 1s ease;
-	transition: all 1s ease;
-}
-
-a.animated, button.animated {
-	border: 2px solid #D24D57;
+.animated {
+	border: 2px solid darkblue;
 
 }
-a.animated:after, button.animated:after {
-    background: #D24D57;
+.animated:after {
+    background: #007399;
 	-moz-transform: translateX(-50%) translateY(-50%) rotate(25deg);
 	-ms-transform: translateX(-50%) translateY(-50%) rotate(25deg);
 	-webkit-transform: translateX(-50%) translateY(-50%) rotate(25deg);
 	transform: translateX(-50%) translateY(-50%) rotate(25deg);
 }
 
+strong {
+    font-style: italic;
+}
