@@ -24,12 +24,14 @@
     {% if user %}
         <a href="/question/{{ question.id }}/new-comment">Add a comment</a><br>
     {% endif %}
+
     <h4>Answers:</h4>
         <table>
             {% for answer in answers %}
                 <tr>
                     <td>{{ answer.submission_time }}</td>
                     <td>{{ answer.message }}</td>
+
                     {% if user %}
                         <td><a href='/answer/{{ answer.id }}/edit'>Edit answer</a></td>
                         <td><a href="/answer/{{ answer.id }}/new-comment">Add comment to answer</a></td>
@@ -46,8 +48,10 @@
                 </tr>
             {% endfor %}
         </table><br>
+
     {% if user %}
         <p><a href="/question/{{ question.id }}/new-answer">Post an answer</a></p><br>
     {% endif %}
     <p><a href="/list">Back to Questions</a></p>
+
 {% endblock %}
