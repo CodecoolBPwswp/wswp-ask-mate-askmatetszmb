@@ -137,6 +137,12 @@ def registration():
         return redirect('/')
 
 
+@app.route('/list-registered-users')
+def list_registered_users():
+    registered_users = datamanager.list_users()
+    return render_template('/list-registered-users.html', registered_users=registered_users)
+
+
 if __name__ == "__main__":
     app.run(
       debug=True,

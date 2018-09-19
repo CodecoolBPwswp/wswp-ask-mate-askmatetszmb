@@ -185,3 +185,14 @@ def register_user(cursor, user_name, password):
                     VALUES (%(user_name)s, %(password)s, %(registration_date)s )
                     """,
                    {'user_name': user_name, 'password': password, 'registration_date': registration_date})
+
+
+@database_common.connection_handler
+def list_users(cursor):
+    cursor.execute("""
+                    SELECT user_name, registration_date
+                    FROM users
+                    ORDER BY registration_date
+                    """)
+    users = cursor.fetchall()
+    return users
