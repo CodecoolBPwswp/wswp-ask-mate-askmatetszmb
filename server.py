@@ -19,7 +19,10 @@ def index():
 @app.route('/list')
 def list_questions():
     questions = datamanager.get_questions()
-    return render_template('list.html', questions=questions)
+    user = None
+    if 'user_name' in session:
+        user = session['user_name']
+    return render_template('list.html', questions=questions, user=user)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
@@ -41,18 +44,23 @@ def display_question(question_id=None):
     answers = datamanager.get_answers(question_id)
     comments = datamanager.get_question_comment(question_id)
     answer_ids = datamanager.get_answer_id(question_id)
+    user = None
+    if 'user_name' in session:
+        user = session['user_name']
     if answer_ids == []:
         return render_template('display-question.html',
                                question=question,
                                answers=answers,
-                               comments=comments)
+                               comments=comments,
+                               user=user)
     else:
         answer_comments = datamanager.get_answer_comment(answer_ids)
         return render_template('display-question.html',
                                question=question,
                                answers=answers,
                                comments=comments,
-                               answer_comments=answer_comments)
+                               answer_comments=answer_comments,
+                               user=user)
 
 
 @app.route('/question/<int:question_id>/new-answer', methods=['GET', 'POST'])

@@ -8,7 +8,8 @@
             </li>
         {% endfor%}
     </ul><br>
-    <a href="/add-question">Ask a question</a><br>
-    <p></p><br>
+    {% if user %}
+        <a href="/add-question">Ask a question</a><br>
+    {% endif %}
     <a href="/">Back to Main page</a>
 {% endblock %}
