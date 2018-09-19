@@ -104,3 +104,60 @@ a:link, a:visited {
     text-align: center;
     display: inline-block;
 }
+
+* {
+	box-sizing: border-box;
+}
+
+.search {
+	display: inline-block;
+	font-family: "Montserrat", "Trebuchet MS", Helvetica, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	position: relative;
+	padding: .8em 1.4em;
+	padding-right: 4.7em;
+	background: #11557C;
+	border: none;
+	color: white;
+	transition: .2s;}
+
+.search {
+	min-width: 15em;
+}
+
+.search:before,
+.search:after {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		padding-top: inherit;
+		padding-bottom: inherit;
+		width: 2.8em;
+		content: "\00a0";
+		font-family: 'FontAwesome', sans-serif;
+		font-size: 1.2em;
+		text-align: center;
+		transition: .2s;
+		transform-origin: 50% 60%;
+}
+.search:before {
+		background: #007399;
+}
+.search:hover {
+		background-color: #00394d;
+}
+.search:active,
+.search:focus {
+		opacity:1;
+}
+
+.search:after {
+		content:"\f002";
+}
+.search:hover:after {
+		-webkit-animation: none;
+		-webkit-transform: scale(1.4);
+		animation: none;
+		transform: scale(1.4);
+}
