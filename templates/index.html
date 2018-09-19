@@ -27,9 +27,9 @@
         <textarea id="search" name="search_phrase" rows="1" cols="20" required></textarea><br>
         <button type="submit">Search!</button>
     </form><br>
-    <a href="/registration">Registration</a><br>
-    <a href="/login">Log in</a><br>
-    <a href="{{ url_for('logout') }}">Log out</a>
+    <a href="/registration" class="animated">Registration</a><br>
+    <a href="/login" class="animated">Log in</a><br>
+    <a href="{{ url_for('logout') }}" class="animated">Log out</a>
 
     <a href="/list-registered-users">All registered users</a>
 {% endblock %}
