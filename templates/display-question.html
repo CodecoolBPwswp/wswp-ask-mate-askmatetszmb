@@ -17,9 +17,9 @@
     <h4>Question comments:</h4>
         {% for comment in comments %}
             <p class="comments">{{ comment.submission_time }} : {{ comment.message }}
-                <a href="/comments/{{ comment.id }}/delete">Delete comment</a></p>
+                <a href="/comments/{{ comment.id }}/delete" class="button">Delete comment</a></p>
         {% endfor %}
-    <a href="/question/{{ question.id }}/new-comment">Add a comment</a><br>
+    <a href="/question/{{ question.id }}/new-comment" class="button">Add a comment</a><br>
 
     <h4>Answers:</h4>
         <table>
@@ -27,8 +27,8 @@
                 <tr>
                     <td>{{ answer.submission_time }}</td>
                     <td>{{ answer.message }}</td>
-                    <td><a href='/answer/{{ answer.id }}/edit'>Edit answer</a></td>
-                    <td><a href="/answer/{{ answer.id }}/new-comment">Add comment to answer</a></td>
+                    <td><a href='/answer/{{ answer.id }}/edit' class="button">Edit answer</a></td>
+                    <td><a href="/answer/{{ answer.id }}/new-comment" class="button">Add comment to answer</a></td>
                 {% if answer_comments %}
                     <td id="comment">
                     {% for ans_comment in answer_comments %}
@@ -41,6 +41,6 @@
                 </tr>
             {% endfor %}
         </table><br>
-    <p><a href="/question/{{ question.id }}/new-answer">Post an answer</a></p><br>
-    <p><a href="/list">Back to Questions</a></p>
+    <p><a href="/question/{{ question.id }}/new-answer" class="button">Post an answer</a></p><br>
+    <p><a href="/list" class="button">Back to Questions</a></p>
 {% endblock %}
