@@ -2,6 +2,8 @@ h1 {
     text-transform: uppercase;
     text-align: center;
     color: darkblue;
+    background-color: #eeeeee;
+    text-shadow: 2px 2px #0066cc;
 }
 
 html, body {
@@ -26,7 +28,11 @@ body{
     font-family: 'Aclonica';
 }
 
-
+h2 {
+	font-style: italic;
+    color: darkblue;
+    border-bottom: 1px darkblue solid;
+}
 
 th {
     font-size: 22px;
@@ -94,7 +100,7 @@ a:link, a:visited {
 	position: relative;
 	padding: .8em 1.4em;
 	padding-right: 4.7em;
-	background: #11557C;
+	background: #0066cc;
 	border: none;
 	color: white;
 	transition: .2s;}
@@ -120,10 +126,10 @@ a:link, a:visited {
 		transform-origin: 50% 60%;
 }
 .search:before {
-		background: #007399;
+		background: #0059b3;
 }
 .search:hover {
-		background-color: #00394d;
+		background-color: #003366;
 }
 .search:active,
 .search:focus {
@@ -188,7 +194,7 @@ a.button:link, a.button:visited {
 }
 
 .animated:hover {
-    background: #007399;
+    background: #0073e6;
 	color: #FFF;
 	text-shadow: none;
 }
