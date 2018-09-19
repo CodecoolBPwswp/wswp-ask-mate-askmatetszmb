@@ -139,7 +139,8 @@ def registration():
             datamanager.register_user(user_name, hashed_password)
             return redirect('/')
         except:
-            return render_template('registration.html')
+            error = 'Username already in use. Please try again!'
+            return render_template('registration.html', error=error)
     else:
         return render_template('registration.html')
 
