@@ -1,20 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
     <h1>WELCOME to Ask Mate</h1>
-
     {% if username %}
-        <form action="{{ url_for('logout') }}" method="get">
-        <button class="animated" type="submit">Log out</button></form>
+        <a href="{{ url_for('logout') }}" class="animated">Log out</a><br>
     {% else %}
-        <form action='{{ url_for('registration') }}' method="get">
-        <button class="animated" type="submit">Registration</button></form>
-        <form action='{{ url_for('login') }}' method="get">
-        <button class="animated" type="submit">Log in</button></form><br>
+        <a href="/registration" class="animated">Registration</a>
+        <a href="/login" class="animated">Log in</a><br>
     {% endif %}
     <a href="/list-registered-users">All registered users</a><br>
     <p>
     {% if username %}
-        {{ username }} you are successfully logged in!
+        <strong>{{ username }}</strong> you are successfully logged in!
     {% endif %}
     </p><br>
 
@@ -33,7 +29,7 @@
         {% endfor %}
     </table>
 
-    <p><a href="/list">Questions</a></p><br>
+    <p><a class ='animated' href="/list">Questions</a></p><br>
 
     <form action="{{ url_for('search') }}" method="post">
         <label for="search">Search</label><br>
