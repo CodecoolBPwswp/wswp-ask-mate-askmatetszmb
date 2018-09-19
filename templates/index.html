@@ -1,11 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
     <h1>WELCOME to Ask Mate</h1>
+
+    {% if username %}
+        <form action="{{ url_for('logout') }}" method="get">
+        <button class="animated" type="submit">Log out</button></form>
+    {% else %}
+        <form action='{{ url_for('registration') }}' method="get">
+        <button class="animated" type="submit">Registration</button></form>
+        <form action='{{ url_for('login') }}' method="get">
+        <button class="animated" type="submit">Log in</button></form><br>
+    {% endif %}
+    <a href="/list-registered-users">All registered users</a><br>
     <p>
     {% if username %}
         {{ username }} you are successfully logged in!
     {% endif %}
     </p>
+
     <table>
         <tr>
             <th>Time of submission</th>
@@ -20,16 +32,12 @@
             </tr>
         {% endfor %}
     </table>
+
     <p><a href="/list">Questions</a></p><br>
 
     <form action="{{ url_for('search') }}" method="post">
         <label for="search">Search</label><br>
         <textarea id="search" name="search_phrase" rows="1" cols="20" required></textarea><br>
-        <button type="submit">Search!</button>
+        <button class="button search" type="submit">Search!</button>
     </form><br>
-    <a href="/registration">Registration</a><br>
-    <a href="/login">Log in</a><br>
-    <a href="{{ url_for('logout') }}">Log out</a>
-
-    <a href="/list-registered-users">All registered users</a>
 {% endblock %}
