@@ -1,15 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
     <h1>Questions</h1>
-    <ul>
-        {% for question in questions %}
-            <li>
-                <a href="/question/{{ question.id }}"> {{ question.title }}</a>
-            </li>
-        {% endfor%}
-    </ul><br>
+    {% for question in questions %}
+        <p>
+            <a href="/question/{{ question.id }}"> {{ question.title }}</a>
+        </p>
+    {% endfor%}
     {% if user %}
-        <a href="/add-question">Ask a question</a><br>
+        <a class ='animated' href="/add-question">Ask a question</a><br>
     {% endif %}
-    <a href="/">Back to Main page</a>
+    <a class ='animated' href="/">Back to Main page</a>
 {% endblock %}
