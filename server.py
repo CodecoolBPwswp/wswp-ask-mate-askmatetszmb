@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for, session
+from flask import Flask, flash, render_template, redirect, request, url_for, session
 import datamanager
 import utility
 
@@ -157,15 +157,20 @@ def login():
         user_name = user_data['user_name']
         user_password = user_data['password']
         user = datamanager.get_user_data(user_name)
+
         if user is None:
-            return redirect(url_for('login'))
+            error = 'Invalid username or password. Please try again!'
+            return render_template('login.html', error=error)
+
         hashed_password = user['password']
         is_matching = utility.verify_password(user_password, hashed_password)
+
         if is_matching is True:
             session['user_name'] = user_data['user_name']
             return redirect(url_for('index'))
         else:
-            return redirect(url_for('login'))
+            error = 'Invalid username or password. Please try again!'
+            return render_template('login.html', error=error)
     else:
         return render_template('login.html')
 

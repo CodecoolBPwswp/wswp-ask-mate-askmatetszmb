@@ -2,8 +2,8 @@
 {% block content %}
     <h1>WELCOME to Ask Mate</h1>
     <p>
-    {% if user_name is not none %}
-        Logged in as {{ username }}
+    {% if username %}
+        {{ username }} you are successfully logged in!
     {% endif %}
     </p>
     <table>
