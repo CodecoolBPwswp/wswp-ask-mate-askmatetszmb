@@ -199,7 +199,7 @@ def register_user(cursor, user_name, password):
 @database_common.connection_handler
 def list_users(cursor):
     cursor.execute("""
-                    SELECT user_name, registration_date
+                    SELECT id, user_name, registration_date
                     FROM users
                     ORDER BY registration_date
                     """)
@@ -219,3 +219,48 @@ def get_user_data(cursor, user_name):
     return user_data
 
 
+@database_common.connection_handler
+def get_user_name_from_id(cursor, user_id):
+    cursor.execute("""
+                    SELECT user_name FROM users
+                    WHERE id = %(user_id)s;
+                    """,
+                   {'user_id': user_id})
+    user_name = cursor.fetchone()
+    return user_name
+
+
+@database_common.connection_handler
+def get_questions_by_user(cursor, user_id):
+    cursor.execute("""
+                    SELECT id, title
+                    FROM question
+                    WHERE user_id = %(user_id)s;
+                    """,
+                   {'user_id': user_id})
+    questions = cursor.fetchall()
+    return questions
+
+
+@database_common.connection_handler
+def get_answers_by_user(cursor, user_id):
+    cursor.execute("""
+                    SELECT id, message
+                    FROM answer
+                    WHERE user_id = %(user_id)s;
+                    """,
+                   {'user_id': user_id})
+    answers = cursor.fetchall()
+    return answers
+
+
+@database_common.connection_handler
+def get_comments_by_user(cursor, user_id):
+    cursor.execute("""
+                    SELECT id, message
+                    FROM comment
+                    WHERE user_id = %(user_id)s;
+                    """,
+                   {'user_id': user_id})
+    comments = cursor.fetchall()
+    return comments

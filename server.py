@@ -192,6 +192,19 @@ def logout():
     return redirect(url_for('index'))
 
 
+@app.route('/user/<int:user_id>')
+def show_user_page(user_id=None):
+    user_name = datamanager.get_user_name_from_id(user_id)
+    questions = datamanager.get_questions_by_user(user_id)
+    answers = datamanager.get_answers_by_user(user_id)
+    comments = datamanager.get_comments_by_user(user_id)
+    return render_template('user-page.html',
+                           user_name=user_name,
+                           questions=questions,
+                           answers=answers,
+                           comments=comments)
+
+
 if __name__ == "__main__":
     app.run(
       debug=True,

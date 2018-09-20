@@ -9,7 +9,7 @@
             {% for user in registered_users %}
                 <tr>
                     <td>{{ user.registration_date }}</td>
-                    <td>{{ user.user_name }}</td>
+                    <td><a href="/user/{{ user.id }}">{{ user.user_name }}</a></td>
                 </tr>
             {% endfor%}
         </table>
