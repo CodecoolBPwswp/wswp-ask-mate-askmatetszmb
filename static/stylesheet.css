@@ -1,57 +1,47 @@
 h1 {
-    font-family: 'padmaa-Bold.1.1';
     text-transform: uppercase;
     text-align: center;
+    color: darkblue;
+    background-color: #eeeeee;
+    text-shadow: 2px 2px #0066cc;
 }
+
+html, body {
+    height: 100%;
+}
+
+html {
+    display: table;
+    width: 100%;
+}
+
 
 body{
     background-image: url('background.jpg');
     background-color: #A5D6D9;
     background-size: cover;
+    margin: auto;
     width: 750px;
-    margin: auto;
-    position: center;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    font-family: 'Aclonica';
 }
 
-tr {
-    position: center;
-    text-align: center;
-}
-
-td {
-
-    margin: auto;
-    padding: 7px;
-    border: 1px solid black;
-    position: center;
-    text-align: center;
-
+h2 {
+	font-style: italic;
+    color: darkblue;
+    border-bottom: 1px darkblue solid;
 }
 
 th {
-
-    margin: auto;
-    padding: 7px;
-    border: 1px solid black;
-    position: center;
-    text-align: center;
-
-}
-
-li {
-    padding: 7px;
-    margin: 7px;
+    font-size: 22px;
+    padding: 6px;
 }
 
 .comments {
     padding: 7px;
     margin: 7px;
-}
-
-button {
-    background-color: darkblue;
-    color: antiquewhite;
-    font-weight: bold;
 }
 
 label {
@@ -68,11 +58,167 @@ p.question-message {
     font-size: 20px;
 }
 
-
 p {
     margin: 5px;
 }
 
 #comment {
     border: none;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+table {
+    border-collapse: collapse;
+    empty-cells: hide;
+}
+table, th, td {
+    border: 2px solid darkblue;
+    position: center;
+    margin: auto;
+}
+a:hover, a:active {
+    background-color: #ffb3da;
+    border-radius: 12px;
+}
+a:link, a:visited {
+    color: purple;
+    padding: 7px 8px;
+    text-align: center;
+    display: inline-block;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.search {
+	display: inline-block;
+	font-family: "Montserrat", "Trebuchet MS", Helvetica, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	position: relative;
+	padding: .8em 1.4em;
+	padding-right: 4.7em;
+	background: #0066cc;
+	border: none;
+	color: white;
+	transition: .2s;}
+
+.search {
+	min-width: 15em;
+}
+
+.search:before,
+.search:after {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		padding-top: inherit;
+		padding-bottom: inherit;
+		width: 2.8em;
+		content: "\00a0";
+		font-family: 'FontAwesome', sans-serif;
+		font-size: 1.2em;
+		text-align: center;
+		transition: .2s;
+		transform-origin: 50% 60%;
+}
+.search:before {
+		background: #0059b3;
+}
+.search:hover {
+		background-color: #003366;
+}
+.search:active,
+.search:focus {
+		opacity:1;
+}
+
+.search:after {
+		content:"\f002";
+}
+.search:hover:after {
+		-webkit-animation: none;
+		-webkit-transform: scale(1.4);
+		animation: none;
+		transform: scale(1.4);
+}
+
+a.button:link, a.button:visited {
+    color: purple;
+    padding: 7px 8px;
+    text-align: center;
+    display: inline-block;
+    -webkit-appearance: button;
+}
+
+.animated:link, .animated:visited {
+    color: darkblue;
+}
+
+.animated {
+    width: 150px;
+	position: relative;
+	display: block;
+	margin: 30px auto 0;
+	padding: 14px 15px;
+	color: #fff;
+	font-size:14px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	overflow: hidden;
+	letter-spacing: .08em;
+	border-radius: 0;
+	text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+}
+.animated:after {
+	content: "";
+	position: absolute;
+	height: 0%;
+	left: 50%;
+	top: 50%;
+	width: 150%;
+	z-index: -1;
+	-webkit-transition: all 0.75s ease 0s;
+	-moz-transition: all 0.75s ease 0s;
+	-o-transition: all 0.75s ease 0s;
+	transition: all 0.75s ease 0s;
+}
+
+.animated:hover {
+    background: #0073e6;
+	color: #FFF;
+	text-shadow: none;
+}
+
+.animated:hover:after {
+	height: 450%;
+}
+
+.animated {
+	border: 2px solid darkblue;
+
+}
+.animated:after {
+    background: #007399;
+	-moz-transform: translateX(-50%) translateY(-50%) rotate(25deg);
+	-ms-transform: translateX(-50%) translateY(-50%) rotate(25deg);
+	-webkit-transform: translateX(-50%) translateY(-50%) rotate(25deg);
+	transform: translateX(-50%) translateY(-50%) rotate(25deg);
+}
+
+strong {
+    font-style: italic;
+}
+
+.answer {
+    padding: 6px;
 }

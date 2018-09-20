@@ -1,9 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Add comment</h1>
     <form action="/question/{{question_id}}/new-comment" method="post">
-        <label for="Title">Comment message</label><br>
-        <textarea id="comment" name="question_comment" rows="1" cols="80"></textarea><br>
+        <label for="comment">Your comment for this question:</label><br>
+        <textarea id="comment" name="question_comment" rows="8" cols="80"></textarea><br>
         <button type="submit">Save comment!</button>
     </form>
 {% endblock %}

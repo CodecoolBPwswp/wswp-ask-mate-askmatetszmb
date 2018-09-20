@@ -18,9 +18,10 @@ def get_questions(cursor, limit_num=None):
 @database_common.connection_handler
 def get_answers(cursor, question_id):
     cursor.execute("""
-                    SELECT submission_time, id, message
-                    FROM answer
-                    WHERE question_id = %(question_id)s;
+                    SELECT a.submission_time, a.id, a.message, u.user_name
+                    FROM answer a
+                    LEFT JOIN users u ON a.user_id = u.id
+                    WHERE a.question_id = %(question_id)s;
                     """,
                    {'question_id': question_id})
     answers = cursor.fetchall()
@@ -30,8 +31,10 @@ def get_answers(cursor, question_id):
 @database_common.connection_handler
 def display_question(cursor, id):
     cursor.execute("""
-                    SELECT * FROM question
-                    WHERE id = %(id)s;
+                    SELECT q.id, q.submission_time, q.view_number, q.title, q.message, u.user_name 
+                    FROM question q
+                    LEFT JOIN users u ON q.user_id = u.id
+                    WHERE q.id = %(id)s;
                     """,
                    {'id': id})
     question = cursor.fetchone()
@@ -39,27 +42,29 @@ def display_question(cursor, id):
 
 
 @database_common.connection_handler
-def add_question(cursor, question_title, question_message):
+def add_question(cursor, question_title, question_message, user_id):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
-                    INSERT INTO question (submission_time, view_number, title, message)
-                    VALUES(%(submission_time)s, 0, %(question_title)s, %(question_message)s);
+                    INSERT INTO question (submission_time, view_number, title, message, user_id)
+                    VALUES(%(submission_time)s, 0, %(question_title)s, %(question_message)s, %(user_id)s);
                     """,
                    {'question_title': question_title,
                     'question_message': question_message,
-                    'submission_time': submission_time})
+                    'submission_time': submission_time,
+                    'user_id': user_id})
 
 
 @database_common.connection_handler
-def add_answer(cursor, question_id, answer_message):
+def add_answer(cursor, question_id, answer_message, user_id):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
-                    INSERT INTO answer (submission_time, question_id, message)
-                    VALUES(%(submission_time)s, %(question_id)s, %(answer_message)s);
+                    INSERT INTO answer (submission_time, question_id, message, user_id)
+                    VALUES(%(submission_time)s, %(question_id)s, %(answer_message)s, %(user_id)s);
                     """,
                    {'submission_time': submission_time,
                     'question_id': question_id,
-                    'answer_message': answer_message})
+                    'answer_message': answer_message,
+                    'user_id': user_id})
 
 
 @database_common.connection_handler
@@ -90,23 +95,25 @@ def edit_answer(cursor, id, edited_answer):
 
 
 @database_common.connection_handler
-def add_question_comment(cursor, question_id, query_comment):
+def add_question_comment(cursor, question_id, new_comment, user_id):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
-                    INSERT INTO comment (question_id, message, submission_time, edited_count)
-                    VALUES (%(question_id)s, %(query_comment)s, %(submission_time)s, 0); 
+                    INSERT INTO comment (question_id, message, submission_time, user_id)
+                    VALUES (%(question_id)s, %(new_comment)s, %(submission_time)s, %(user_id)s); 
                     """,
                    {'question_id': question_id,
-                    'query_comment': query_comment,
-                    'submission_time': submission_time})
+                    'new_comment': new_comment,
+                    'submission_time': submission_time,
+                    'user_id': user_id})
 
 
 @database_common.connection_handler
 def get_question_comment(cursor, question_id):
     cursor.execute("""
-                    SELECT submission_time, id, message
-                    FROM comment
-                    WHERE question_id = %(question_id)s;
+                    SELECT c.id, c.submission_time, c.message, u.user_name
+                    FROM comment c
+                    LEFT JOIN users u on c.user_id = u.id
+                    WHERE c.question_id = %(question_id)s;
                     """,
                    {'question_id': question_id})
     comments = cursor.fetchall()
@@ -114,15 +121,16 @@ def get_question_comment(cursor, question_id):
 
 
 @database_common.connection_handler
-def add_answer_comment(cursor, answer_id, new_comment):
+def add_answer_comment(cursor, answer_id, new_comment, user_id):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
-                    INSERT INTO comment (answer_id, message, submission_time)
-                    VALUES (%(answer_id)s, %(new_comment)s, %(submission_time)s);
+                    INSERT INTO comment (answer_id, message, submission_time, user_id)
+                    VALUES (%(answer_id)s, %(new_comment)s, %(submission_time)s, %(user_id)s);
                     """,
                    {'answer_id': answer_id,
                     'new_comment': new_comment,
-                    'submission_time': submission_time})
+                    'submission_time': submission_time,
+                    'user_id': user_id})
 
 
 @database_common.connection_handler
@@ -143,9 +151,10 @@ def get_answer_comment(cursor, ids):
     answer_comments_ids = tuple(ids)
     parameter = {'answer_comments_ids': answer_comments_ids}
     cursor.execute("""
-                    SELECT submission_time, message, answer_id
-                    FROM comment
-                    WHERE answer_id IN %(answer_comments_ids)s;
+                    SELECT c.submission_time, c.message, c.answer_id, u.user_name
+                    FROM comment c
+                    LEFT JOIN users u ON c.user_id = u.id
+                    WHERE c.answer_id IN %(answer_comments_ids)s;
                     """,
                    parameter)
     answer_comments = cursor.fetchall()
@@ -175,3 +184,38 @@ def search(cursor, user_input):
                    parameter)
     result = cursor.fetchall()
     return result
+
+
+@database_common.connection_handler
+def register_user(cursor, user_name, password):
+    registration_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    cursor.execute("""
+                    INSERT INTO users (user_name, password, registration_date)
+                    VALUES (%(user_name)s, %(password)s, %(registration_date)s )
+                    """,
+                   {'user_name': user_name, 'password': password, 'registration_date': registration_date})
+
+
+@database_common.connection_handler
+def list_users(cursor):
+    cursor.execute("""
+                    SELECT user_name, registration_date
+                    FROM users
+                    ORDER BY registration_date
+                    """)
+    users = cursor.fetchall()
+    return users
+
+
+@database_common.connection_handler
+def get_user_data(cursor, user_name):
+    cursor.execute("""
+                    SELECT id, user_name, password
+                    FROM users
+                    WHERE user_name = %(user_name)s
+                    """,
+                   {'user_name': user_name})
+    user_data = cursor.fetchone()
+    return user_data
+
+
