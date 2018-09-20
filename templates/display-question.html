@@ -18,8 +18,8 @@
     </table><br>
     <p class="question-message ">{{ question.message }}</p>
     <h4>Question comments:</h4>
-        {% for comment in comments %}
-            <p class="comments">{{ comment.submission_time }} : {{ comment.message }}
+        {% for comment in question_comments %}
+            <p class="comments">{{ comment.submission_time }} : {{ comment.message }} by {{ comment.user_name }}
                 {% if user %}
                     <a class ='button' href="/comments/{{ comment.id }}/delete">Delete comment</a></p>
                 {% endif %}
@@ -45,7 +45,7 @@
                     <td id="comment">
                     {% for ans_comment in answer_comments %}
                         {% if ans_comment.answer_id == answer.id %}
-                            <p class="comments">{{ ans_comment.submission_time }} : {{ ans_comment.message }}</p>
+                            <p class="comments">{{ ans_comment.submission_time }} : {{ ans_comment.message }} by {{ ans_comment.user_name }}</p>
                         {%  endif %}
                     {% endfor %}
                     </td>

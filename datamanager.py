@@ -18,9 +18,10 @@ def get_questions(cursor, limit_num=None):
 @database_common.connection_handler
 def get_answers(cursor, question_id):
     cursor.execute("""
-                    SELECT answer.submission_time, answer.id, answer.message, u.user_name
-                    FROM answer LEFT JOIN users u on answer.user_id = u.id
-                    WHERE question_id = %(question_id)s;
+                    SELECT a.submission_time, a.id, a.message, u.user_name
+                    FROM answer a
+                    LEFT JOIN users u ON a.user_id = u.id
+                    WHERE a.question_id = %(question_id)s;
                     """,
                    {'question_id': question_id})
     answers = cursor.fetchall()
@@ -31,7 +32,8 @@ def get_answers(cursor, question_id):
 def display_question(cursor, id):
     cursor.execute("""
                     SELECT q.id, q.submission_time, q.view_number, q.title, q.message, u.user_name 
-                    FROM question q LEFT JOIN users u on q.user_id = u.id
+                    FROM question q
+                    LEFT JOIN users u ON q.user_id = u.id
                     WHERE q.id = %(id)s;
                     """,
                    {'id': id})
@@ -108,9 +110,10 @@ def add_question_comment(cursor, question_id, new_comment, user_id):
 @database_common.connection_handler
 def get_question_comment(cursor, question_id):
     cursor.execute("""
-                    SELECT submission_time, id, message
-                    FROM comment
-                    WHERE question_id = %(question_id)s;
+                    SELECT c.id, c.submission_time, c.message, u.user_name
+                    FROM comment c
+                    LEFT JOIN users u on c.user_id = u.id
+                    WHERE c.question_id = %(question_id)s;
                     """,
                    {'question_id': question_id})
     comments = cursor.fetchall()
@@ -148,9 +151,10 @@ def get_answer_comment(cursor, ids):
     answer_comments_ids = tuple(ids)
     parameter = {'answer_comments_ids': answer_comments_ids}
     cursor.execute("""
-                    SELECT submission_time, message, answer_id
-                    FROM comment
-                    WHERE answer_id IN %(answer_comments_ids)s;
+                    SELECT c.submission_time, c.message, c.answer_id, u.user_name
+                    FROM comment c
+                    LEFT JOIN users u ON c.user_id = u.id
+                    WHERE c.answer_id IN %(answer_comments_ids)s;
                     """,
                    parameter)
     answer_comments = cursor.fetchall()
