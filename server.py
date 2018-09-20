@@ -31,7 +31,10 @@ def add_question():
         question = request.form.to_dict()
         question_title = question['question_title']
         question_message = question['question_message']
-        datamanager.add_question(question_title, question_message)
+        user_name = session['user_name']
+        user_data = datamanager.get_user_data(user_name)
+        user_id = user_data['id']
+        datamanager.add_question(question_title, question_message, user_id)
         return redirect('/list')
     else:
         return render_template('add-question.html')
