@@ -151,7 +151,7 @@ def get_answer_comment(cursor, ids):
     answer_comments_ids = tuple(ids)
     parameter = {'answer_comments_ids': answer_comments_ids}
     cursor.execute("""
-                    SELECT c.submission_time, c.message, c.answer_id, u.user_name
+                    SELECT c.id, c.submission_time, c.message, c.answer_id, u.user_name
                     FROM comment c
                     LEFT JOIN users u ON c.user_id = u.id
                     WHERE c.answer_id IN %(answer_comments_ids)s;

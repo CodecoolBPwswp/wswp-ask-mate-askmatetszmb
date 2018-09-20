@@ -17,35 +17,57 @@
         </tr>
     </table><br>
     <p class="question-message ">{{ question.message }}</p>
-    <h4>Question comments:</h4>
+
+    {% if question_comments %}
+    <h4>Comments:</h4>
+        <table>
         {% for comment in question_comments %}
-            <p class="comments">{{ comment.submission_time }} : {{ comment.message }} by {{ comment.user_name }}
+            <tr>
+                <td class="answer">{{ comment.submission_time }}</td>
+                <td class="answer">{{ comment.user_name }}</td>
+                <td class="answer">{{ comment.message }}</td>
                 {% if user %}
-                    <a class ='button' href="/comments/{{ comment.id }}/delete">Delete comment</a></p>
+                <td><a class ='button' href="/comments/{{ comment.id }}/delete">Delete comment</a></td>
                 {% endif %}
+            </tr>
         {% endfor %}
+        </table><br>
+    {% endif %}
     {% if user %}
         <a class ='button' href="/question/{{ question.id }}/new-comment">Add a comment</a><br>
     {% endif %}
 
+    {% if answers %}
     <h4>Answers:</h4>
         <table>
+            <tr>
+                <th>Date</th>
+                <th>User</th>
+                <th>Message</th>
+                {% if answer_comments %}
+                <th>Comments</th>
+                {% endif %}
+            </tr>
             {% for answer in answers %}
                 <tr>
                     <td class="answer">{{ answer.submission_time }}</td>
-                    <td class="answer">{{ answer.message }}</td>
                     {% if answer.user_name %}
-                    <td class="answer">{{ answer.user_name }}</td>
+                        <td class="answer">{{ answer.user_name }}</td>
                     {% endif %}
-                    {% if user %}
-                        <td><a class ='button' href='/answer/{{ answer.id }}/edit'>Edit answer</a></td>
-                        <td><a class ='button' href="/answer/{{ answer.id }}/new-comment">Add comment to answer</a></td>
-                    {% endif %}
+                    <td class="answer">{{ answer.message }}<br>
+                        {% if user %}
+                            <a class ='button' href='/answer/{{ answer.id }}/edit'>Edit answer</a>
+                            <a class ='button' href="/answer/{{ answer.id }}/new-comment">Add comment to answer</a>
+                        {% endif %}
+                    </td>
                 {% if answer_comments %}
                     <td id="comment">
                     {% for ans_comment in answer_comments %}
                         {% if ans_comment.answer_id == answer.id %}
                             <p class="comments">{{ ans_comment.submission_time }} : {{ ans_comment.message }} by {{ ans_comment.user_name }}</p>
+                            {% if user %}
+                                <a class ='button' href="/comments/{{ ans_comment.id }}/delete">Delete comment</a></p>
+                            {% endif %}
                         {%  endif %}
                     {% endfor %}
                     </td>
@@ -53,6 +75,7 @@
                 </tr>
             {% endfor %}
         </table><br>
+    {% endif %}
 
     {% if user %}
         <p><a class ='button' href="/question/{{ question.id }}/new-answer">Post an answer</a></p><br>
