@@ -91,15 +91,16 @@ def edit_answer(cursor, id, edited_answer):
 
 
 @database_common.connection_handler
-def add_question_comment(cursor, question_id, query_comment):
+def add_question_comment(cursor, question_id, new_comment, user_id):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
-                    INSERT INTO comment (question_id, message, submission_time, edited_count)
-                    VALUES (%(question_id)s, %(query_comment)s, %(submission_time)s, 0); 
+                    INSERT INTO comment (question_id, message, submission_time, user_id)
+                    VALUES (%(question_id)s, %(new_comment)s, %(submission_time)s, %(user_id)s); 
                     """,
                    {'question_id': question_id,
-                    'query_comment': query_comment,
-                    'submission_time': submission_time})
+                    'new_comment': new_comment,
+                    'submission_time': submission_time,
+                    'user_id': user_id})
 
 
 @database_common.connection_handler
@@ -115,15 +116,16 @@ def get_question_comment(cursor, question_id):
 
 
 @database_common.connection_handler
-def add_answer_comment(cursor, answer_id, new_comment):
+def add_answer_comment(cursor, answer_id, new_comment, user_id):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
-                    INSERT INTO comment (answer_id, message, submission_time)
-                    VALUES (%(answer_id)s, %(new_comment)s, %(submission_time)s);
+                    INSERT INTO comment (answer_id, message, submission_time, user_id)
+                    VALUES (%(answer_id)s, %(new_comment)s, %(submission_time)s, %(user_id)s);
                     """,
                    {'answer_id': answer_id,
                     'new_comment': new_comment,
-                    'submission_time': submission_time})
+                    'submission_time': submission_time,
+                    'user_id': user_id})
 
 
 @database_common.connection_handler
