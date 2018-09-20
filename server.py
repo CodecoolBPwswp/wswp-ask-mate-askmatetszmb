@@ -90,7 +90,10 @@ def add_question_comment(question_id=None):
     if request.method == 'POST':
         question_comment_pack = request.form.to_dict()
         question_comment = question_comment_pack['question_comment']
-        datamanager.add_question_comment(question_id, question_comment)
+        user_name = session['user_name']
+        user_data = datamanager.get_user_data(user_name)
+        user_id = user_data['id']
+        datamanager.add_question_comment(question_id, question_comment, user_id)
         return redirect(url_for('display_question', question_id=question_id))
     else:
         return render_template('add-question-comment.html', question_id=question_id)
@@ -101,7 +104,10 @@ def add_answer_comment(answer_id=None):
     if request.method == 'POST':
         answer_comment_pack = request.form.to_dict()
         answer_comment = answer_comment_pack['answer_comment']
-        datamanager.add_answer_comment(answer_id, answer_comment)
+        user_name = session['user_name']
+        user_data = datamanager.get_user_data(user_name)
+        user_id = user_data['id']
+        datamanager.add_answer_comment(answer_id, answer_comment, user_id)
         return redirect('/list')
     else:
         return render_template('add-answer-comment.html', answer_id=answer_id)
