@@ -19,7 +19,7 @@ def get_questions(cursor, limit_num=None):
 def get_answers(cursor, question_id):
     cursor.execute("""
                     SELECT answer.submission_time, answer.id, answer.message, u.user_name
-                    FROM answer INNER JOIN users u on answer.user_id = u.id
+                    FROM answer LEFT JOIN users u on answer.user_id = u.id
                     WHERE question_id = %(question_id)s;
                     """,
                    {'question_id': question_id})
