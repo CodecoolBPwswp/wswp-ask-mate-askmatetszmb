@@ -1,4 +1,4 @@
-from flask import Flask, flash, render_template, redirect, request, url_for, session
+from flask import Flask, render_template, redirect, request, url_for, session
 import datamanager
 import utility
 
@@ -45,8 +45,7 @@ def display_question(question_id=None):
     datamanager.view_counter(question_id)
     question = datamanager.display_question(question_id)
     answers = datamanager.get_answers(question_id)
-    print(answers)
-    comments = datamanager.get_question_comment(question_id)
+    question_comments = datamanager.get_question_comment(question_id)
     answer_ids = datamanager.get_answer_id(question_id)
     user = None
     if 'user_name' in session:
@@ -55,14 +54,14 @@ def display_question(question_id=None):
         return render_template('display-question.html',
                                question=question,
                                answers=answers,
-                               comments=comments,
+                               question_comments=question_comments,
                                user=user)
     else:
         answer_comments = datamanager.get_answer_comment(answer_ids)
         return render_template('display-question.html',
                                question=question,
                                answers=answers,
-                               comments=comments,
+                               question_comments=question_comments,
                                answer_comments=answer_comments,
                                user=user)
 
