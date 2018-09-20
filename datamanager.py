@@ -30,8 +30,9 @@ def get_answers(cursor, question_id):
 @database_common.connection_handler
 def display_question(cursor, id):
     cursor.execute("""
-                    SELECT * FROM question
-                    WHERE id = %(id)s;
+                    SELECT q.id, q.submission_time, q.view_number, q.title, q.message, u.user_name 
+                    FROM question q LEFT JOIN users u on q.user_id = u.id
+                    WHERE q.id = %(id)s;
                     """,
                    {'id': id})
     question = cursor.fetchone()

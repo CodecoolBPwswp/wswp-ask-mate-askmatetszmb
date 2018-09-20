@@ -1,18 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>{{ question.title }}</h1><br>
+        <h1>{{ question.title }}</h1><br>
+    {% if question.user_name %}
+        <h2>BY {{ question.user_name }}</h2>
+    {% endif %}
     <table>
         <tr>
             <th>ID</th>
             <th>Date</th>
             <th>Views</th>
-            <th>By</th>
         </tr>
         <tr>
             <td>{{ question.id }}</td>
             <td>{{ question.submission_time }}</td>
             <td>{{ question.view_number }}</td>
-            <td>{{  }}</td>
         </tr>
     </table><br>
     <p class="question-message ">{{ question.message }}</p>
