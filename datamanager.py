@@ -18,8 +18,8 @@ def get_questions(cursor, limit_num=None):
 @database_common.connection_handler
 def get_answers(cursor, question_id):
     cursor.execute("""
-                    SELECT submission_time, id, message
-                    FROM answer
+                    SELECT answer.submission_time, answer.id, answer.message, u.user_name
+                    FROM answer INNER JOIN users u on answer.user_id = u.id
                     WHERE question_id = %(question_id)s;
                     """,
                    {'question_id': question_id})
@@ -51,15 +51,16 @@ def add_question(cursor, question_title, question_message):
 
 
 @database_common.connection_handler
-def add_answer(cursor, question_id, answer_message):
+def add_answer(cursor, question_id, answer_message, user_id):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
-                    INSERT INTO answer (submission_time, question_id, message)
-                    VALUES(%(submission_time)s, %(question_id)s, %(answer_message)s);
+                    INSERT INTO answer (submission_time, question_id, message, user_id)
+                    VALUES(%(submission_time)s, %(question_id)s, %(answer_message)s, %(user_id)s);
                     """,
                    {'submission_time': submission_time,
                     'question_id': question_id,
-                    'answer_message': answer_message})
+                    'answer_message': answer_message,
+                    'user_id': user_id})
 
 
 @database_common.connection_handler
