@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>{{ user_name.user_name }}</h1>
+    {% if questions %}
+        <p>Questions:</p><br>
+        <table>
+        {% for question in questions %}
+            <tr>
+                <td class="answer"><a href="/question/{{ question.id }}">{{ question.title }}</a></td>
+            </tr>
+        {% endfor %}
+        </table><br>
+    {% else %}
+        <p>No questions by this user</p><br>
+    {% endif %}
+    {% if answers %}
+        <p>Answers:</p><br>
+        <table>
+        {% for answer in answers %}
+            <tr>
+                <td class="answer">{{ answer.message }}</td>
+            </tr>
+        {% endfor %}
+        </table><br>
+    {% else %}
+        <p>No answers by this user</p><br>
+    {% endif %}
+    {% if comments %}
+        <p>Comments:</p><br>
+        <table>
+        {% for comment in comments %}
+            <tr>
+                <td class="answer">{{ comment.message }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <p>No comments by this user</p><br>
+    {% endif %}
+{% endblock %}
