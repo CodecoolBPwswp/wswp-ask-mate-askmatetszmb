@@ -64,7 +64,10 @@
                     <td id="comment">
                     {% for ans_comment in answer_comments %}
                         {% if ans_comment.answer_id == answer.id %}
-                            <p class="comments">{{ ans_comment.submission_time }} : {{ ans_comment.message }} by {{ ans_comment.user_name }}</p>
+                            <p class="comments">{{ ans_comment.submission_time }} : {{ ans_comment.message }}
+                                {% if ans_comment.user_name %}
+                                 by {{ ans_comment.user_name }}
+                                {% endif %}</p>
                             {% if user %}
                                 <a class ='button' href="/comments/{{ ans_comment.id }}/delete">Delete comment</a></p>
                             {% endif %}
