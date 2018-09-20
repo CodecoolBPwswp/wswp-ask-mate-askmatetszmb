@@ -218,3 +218,7 @@ a.button:link, a.button:visited {
 strong {
     font-style: italic;
 }
+
+.answer {
+    padding: 6px;
+}

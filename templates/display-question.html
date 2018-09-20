@@ -29,8 +29,9 @@
         <table>
             {% for answer in answers %}
                 <tr>
-                    <td>{{ answer.submission_time }}</td>
-                    <td>{{ answer.message }}</td>
+                    <td class="answer">{{ answer.submission_time }}</td>
+                    <td class="answer">{{ answer.message }}</td>
+                    <td class="answer">{{ answer.user_name }}</td>
 
                     {% if user %}
                         <td><a class ='button' href='/answer/{{ answer.id }}/edit'>Edit answer</a></td>

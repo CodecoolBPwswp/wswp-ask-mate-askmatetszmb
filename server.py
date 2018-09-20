@@ -42,6 +42,7 @@ def display_question(question_id=None):
     datamanager.view_counter(question_id)
     question = datamanager.display_question(question_id)
     answers = datamanager.get_answers(question_id)
+    print(answers)
     comments = datamanager.get_question_comment(question_id)
     answer_ids = datamanager.get_answer_id(question_id)
     user = None
@@ -68,7 +69,10 @@ def add_answer(question_id=None):
     if request.method == 'POST':
         answer = request.form.to_dict()
         answer_message = answer['answer_message']
-        datamanager.add_answer(question_id, answer_message)
+        user = session['user_name']
+        user_data = datamanager.get_user_data(user)
+        user_id = user_data['id']
+        datamanager.add_answer(question_id, answer_message, user_id)
         return redirect(url_for('display_question', question_id=question_id))
     else:
         return render_template('add-answer.html', question_id=question_id)
