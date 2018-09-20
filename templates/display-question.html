@@ -31,8 +31,9 @@
                 <tr>
                     <td class="answer">{{ answer.submission_time }}</td>
                     <td class="answer">{{ answer.message }}</td>
+                    {% if answer.user_name %}
                     <td class="answer">{{ answer.user_name }}</td>
-
+                    {% endif %}
                     {% if user %}
                         <td><a class ='button' href='/answer/{{ answer.id }}/edit'>Edit answer</a></td>
                         <td><a class ='button' href="/answer/{{ answer.id }}/new-comment">Add comment to answer</a></td>
