@@ -30,8 +30,9 @@ def get_answers(cursor, question_id):
 @database_common.connection_handler
 def display_question(cursor, id):
     cursor.execute("""
-                    SELECT * FROM question
-                    WHERE id = %(id)s;
+                    SELECT q.id, q.submission_time, q.view_number, q.title, q.message, u.user_name 
+                    FROM question q LEFT JOIN users u on q.user_id = u.id
+                    WHERE q.id = %(id)s;
                     """,
                    {'id': id})
     question = cursor.fetchone()
@@ -39,15 +40,16 @@ def display_question(cursor, id):
 
 
 @database_common.connection_handler
-def add_question(cursor, question_title, question_message):
+def add_question(cursor, question_title, question_message, user_id):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
-                    INSERT INTO question (submission_time, view_number, title, message)
-                    VALUES(%(submission_time)s, 0, %(question_title)s, %(question_message)s);
+                    INSERT INTO question (submission_time, view_number, title, message, user_id)
+                    VALUES(%(submission_time)s, 0, %(question_title)s, %(question_message)s, %(user_id)s);
                     """,
                    {'question_title': question_title,
                     'question_message': question_message,
-                    'submission_time': submission_time})
+                    'submission_time': submission_time,
+                    'user_id': user_id})
 
 
 @database_common.connection_handler
@@ -211,3 +213,5 @@ def get_user_data(cursor, user_name):
                    {'user_name': user_name})
     user_data = cursor.fetchone()
     return user_data
+
+

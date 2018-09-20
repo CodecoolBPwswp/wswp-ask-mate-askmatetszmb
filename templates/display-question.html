@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>{{ question.title }}</h1><br>
+        <h1>{{ question.title }}</h1><br>
+    {% if question.user_name %}
+        <h2>BY {{ question.user_name }}</h2>
+    {% endif %}
     <table>
         <tr>
             <th>ID</th>
